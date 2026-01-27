@@ -3435,6 +3435,13 @@ Response:
     </div>
 
     <script>
+  const pwd = prompt("请输入访问密码");
+  if (pwd !== "123456") {
+    document.body.innerHTML = "Access Denied";
+  }
+</script>
+
+    <script>
         // 密码验证功能
         let isAuthenticated = false;
 
@@ -3691,3 +3698,4 @@ Response:
     </script>
 </body>
 </html>
+
