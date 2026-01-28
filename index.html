@@ -697,18 +697,18 @@
                 <span class="tree-toggle"></span>
                 <span data-zh="2.6 获取启动 URL" data-en="2.6 Get Launch URL">2.6 获取启动 URL</span>
             </div>
-            <div class="tree-item level-2" data-section="betting-history-date">
+            <!-- <div class="tree-item level-2" data-section="betting-history-date">
                 <span class="tree-toggle"></span>
                 <span data-zh="2.7 获取投注历史（按日期）已弃用" data-en="2.7 Get Betting History (by date) deprecated">2.7 获取投注历史（按日期）已弃用</span>
-            </div>
+            </div> -->
             <div class="tree-item level-2" data-section="betting-history-id">
                 <span class="tree-toggle"></span>
                 <span data-zh="2.8 获取投注历史（按 ID）" data-en="2.8 Get Betting History (by Id)">2.8 获取投注历史（按 ID）</span>
             </div>
-            <div class="tree-item level-2" data-section="transaction-history">
+            <!-- <div class="tree-item level-2" data-section="transaction-history">
                 <span class="tree-toggle"></span>
                 <span data-zh="2.9 获取交易历史（按 ID）" data-en="2.9 Get Transaction History (by Id)">2.9 获取交易历史（按 ID）</span>
-            </div>
+            </div> -->
             <div class="tree-item level-2" data-section="agent-balance">
                 <span class="tree-toggle"></span>
                 <span data-zh="2.10 获取代理余额" data-en="2.10 Get Agent Balance">2.10 获取代理余额</span>
@@ -856,6 +856,39 @@
                 <div class="description" data-zh="在一个将彻底改变在线游戏行业的开创性举措中，已正式推出其备受期待真人娱乐场、老虎机和迷你游戏 API 平台。这个最先进的解决方案承诺为玩家和运营商提供无与伦比的游戏体验。" data-en="In a groundbreaking move that is set to revolutionize the online gaming industry, has officially launched its highly anticipated live casino, slot, and mini game API platform. This state-of-the-art solution promises to deliver an unparalleled gaming experience to players and operators alike.">
                     在一个将彻底改变在线游戏行业的开创性举措中，已正式推出其备受期待真人娱乐场、老虎机和迷你游戏 API 平台。这个最先进的解决方案承诺为玩家和运营商提供无与伦比的游戏体验。
                 </div>
+
+                <h3 data-zh="统一响应结构说明" data-en="Unified response structure">统一响应结构说明</h3>
+                <div class="description">
+                    <p data-zh="除特别说明外，本章节中的所有接口响应都会使用统一的三层结构：最外层为 success / message / errorCode，其中 message 再根据不同接口返回不同的数据结构。" data-en="Unless otherwise specified, all API responses in this chapter use a unified 3-field wrapper: the outer layer contains success / message / errorCode, and message holds different data structures depending on the API.">
+                        除特别说明外，本章节中的所有接口响应都会使用统一的三层结构：最外层为 success / message / errorCode，其中 message 再根据不同接口返回不同的数据结构。
+                    </p>
+                </div>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="字段" data-en="Field">字段</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="说明" data-en="Description">说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>success</td>
+                            <td>boolean</td>
+                            <td data-zh="请求是否成功处理：true 表示成功，false 表示失败" data-en="Whether the request was processed successfully: true means success, false means failure">请求是否成功处理：true 表示成功，false 表示失败</td>
+                        </tr>
+                        <tr>
+                            <td>message</td>
+                            <td>any</td>
+                            <td data-zh="实际业务数据载体，不同接口会返回不同的数据结构（字符串、对象或数组等），具体请参考各接口小节中的“数据类型/字段说明”" data-en="Actual business payload; different APIs return different structures (string, object, array, etc.). See each API section's data type/field description for details.">实际业务数据载体，不同接口会返回不同的数据结构（字符串、对象或数组等），具体请参考各接口小节中的“数据类型/字段说明”。</td>
+                        </tr>
+                        <tr>
+                            <td>errorCode</td>
+                            <td>int</td>
+                            <td data-zh="错误码：0 表示成功，非 0 表示对应错误代码（详见错误代码章节）" data-en="Error code: 0 means success; non-zero values represent specific error codes (see Error Codes section).">错误码：0 表示成功，非 0 表示对应错误代码（详见错误代码章节）。</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- 1.1 无缝钱包 API -->
@@ -1096,8 +1129,8 @@ Host: xxx.com
             <!-- 2.1 CreateToken -->
             <div class="content-section" id="create-token">
                 <h2 class="section-title" data-zh="2.1 创建令牌" data-en="2.1 CreateToken">2.1 创建令牌</h2>
-                <div class="description" data-zh="使用此方法，赌场运营商将获得身份验证承载令牌。此 API 允许每 30 秒最多 5 个请求。超过此限制可能会导致临时限制或请求被拒绝。注意：过多的令牌生成请求可能导致账户被阻止。" data-en="Using this method Casino Operator will get the authentication bearer token. This API allows a maximum of 5 requests per 30 seconds. Exceeding this limit may result in temporary throttling or request rejection. Caution: Excessive requests for token generation may result in account blocking.">
-                    使用此方法，赌场运营商将获得身份验证承载令牌。此 API 允许每 30 秒最多 5 个请求。超过此限制可能会导致临时限制或请求被拒绝。注意：过多的令牌生成请求可能导致账户被阻止。
+                <div class="description" data-zh="使用此方法，赌场运营商将获得身份验证承载令牌。此 API 允许每 30 秒最多 5 个请求。超过此限制可能会导致临时限制或请求被拒绝。注意：过多的令牌生成请求可能导致账户被阻止。获取到token之后请缓存起来复用，用于后续其他API的请求" data-en="Using this method Casino Operator will get the authentication bearer token. This API allows a maximum of 5 requests per 30 seconds. Exceeding this limit may result in temporary throttling or request rejection. Caution: Excessive requests for token generation may result in account blocking.After obtaining the token, please cache it for reuse in subsequent API requests.">
+                    使用此方法，赌场运营商将获得身份验证承载令牌。此 API 允许每 30 秒最多 5 个请求。超过此限制可能会导致临时限制或请求被拒绝。注意：过多的令牌生成请求可能导致账户被阻止。获取到token之后请缓存起来复用，用于后续其他API的请求
                 </div>
                 <div class="api-endpoint">
                     <span class="api-method">POST</span>
@@ -1353,6 +1386,97 @@ Response:
     "errorCode": 0
 }</code></pre>
                 </div>
+
+                <h3 data-zh="响应字段说明" data-en="Response field description">响应字段说明</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>success</td>
+                            <td>boolean</td>
+                            <td data-zh="请求是否成功处理：true 表示成功，false 表示失败" data-en="Whether the request was processed successfully: true means success, false means failure">请求是否成功处理：true 表示成功，false 表示失败</td>
+                        </tr>
+                        <tr>
+                            <td>message</td>
+                            <td>array&lt;GameItem&gt;</td>
+                            <td data-zh="游戏列表，每一项代表一个可用游戏，字段说明见下表" data-en="List of games; each item represents an available game, see the table below for field details">游戏列表，每一项代表一个可用游戏，字段说明见下表</td>
+                        </tr>
+                        <tr>
+                            <td>errorCode</td>
+                            <td>int</td>
+                            <td data-zh="错误码：0 表示成功，非 0 表示对应错误代码" data-en="Error code: 0 means success, non-zero means specific error code">错误码：0 表示成功，非 0 表示对应错误代码</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 data-zh="GameItem 字段说明" data-en="Fields of GameItem">GameItem 字段说明</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>provider</td>
+                            <td>string</td>
+                            <td data-zh="游戏提供商名称，例如 Evolution" data-en="Name of the game provider, e.g. Evolution">游戏提供商名称，例如 Evolution</td>
+                        </tr>
+                        <tr>
+                            <td>vendorCode</td>
+                            <td>string</td>
+                            <td data-zh="供应商编码，唯一标识该供应商" data-en="Vendor code, uniquely identifies the provider">供应商编码，唯一标识该供应商</td>
+                        </tr>
+                        <tr>
+                            <td>gameId</td>
+                            <td>string</td>
+                            <td data-zh="第三方游戏 ID（如有），有些供应商可能留空" data-en="Third-party game ID if provided; may be empty for some vendors">第三方游戏 ID（如有），有些供应商可能留空</td>
+                        </tr>
+                        <tr>
+                            <td>gameCode</td>
+                            <td>string</td>
+                            <td data-zh="游戏编码，用于在其他接口中引用该游戏" data-en="Game code used to reference this game in other APIs">游戏编码，用于在其他接口中引用该游戏</td>
+                        </tr>
+                        <tr>
+                            <td>gameName</td>
+                            <td>string</td>
+                            <td data-zh="游戏显示名称" data-en="Display name of the game">游戏显示名称</td>
+                        </tr>
+                        <tr>
+                            <td>slug</td>
+                            <td>string</td>
+                            <td data-zh="游戏短标识/别名，用于前端路由或展示" data-en="Short identifier/slug used for routing or display">游戏短标识/别名，用于前端路由或展示</td>
+                        </tr>
+                        <tr>
+                            <td>thumbnail</td>
+                            <td>string</td>
+                            <td data-zh="游戏缩略图 URL" data-en="Thumbnail image URL of the game">游戏缩略图 URL</td>
+                        </tr>
+                        <tr>
+                            <td>updatedAt</td>
+                            <td>string(UTC)</td>
+                            <td data-zh="该游戏信息最后更新时间（UTC 时间）" data-en="Last updated time of this game information (UTC time)">该游戏信息最后更新时间（UTC 时间）</td>
+                        </tr>
+                        <tr>
+                            <td>isNew</td>
+                            <td>boolean</td>
+                            <td data-zh="是否为新游戏，用于前端打 NEW 标签" data-en="Whether this is a newly released game, useful for showing a NEW badge in frontend">是否为新游戏，用于前端打 NEW 标签</td>
+                        </tr>
+                        <tr>
+                            <td>underMaintenance</td>
+                            <td>boolean</td>
+                            <td data-zh="游戏当前是否维护中，如果为 true 建议前端禁用进入" data-en="Whether the game is currently under maintenance; if true, the game should not be enterable">游戏当前是否维护中，如果为 true 建议前端禁用进入</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- 2.4 迷你游戏列表 -->
@@ -1390,6 +1514,92 @@ Response:
     "success": true
 }</code></pre>
                 </div>
+
+                <h3 data-zh="响应字段说明" data-en="Response field description">响应字段说明</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>success</td>
+                            <td>boolean</td>
+                            <td data-zh="请求是否成功处理：true 表示成功，false 表示失败" data-en="Whether the request was processed successfully: true means success, false means failure">请求是否成功处理：true 表示成功，false 表示失败</td>
+                        </tr>
+                        <tr>
+                            <td>message</td>
+                            <td>array&lt;MiniGameItem&gt;</td>
+                            <td data-zh="迷你游戏列表，每一项代表一个可用迷你游戏，字段说明见下表" data-en="List of mini games; each item represents an available mini game, see the table below for field details">迷你游戏列表，每一项代表一个可用迷你游戏，字段说明见下表</td>
+                        </tr>
+                        <tr>
+                            <td>errorCode</td>
+                            <td>int</td>
+                            <td data-zh="错误码：0 表示成功，非 0 表示对应错误代码" data-en="Error code: 0 means success, non-zero means specific error code">错误码：0 表示成功，非 0 表示对应错误代码</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 data-zh="MiniGameItem 字段说明" data-en="Fields of MiniGameItem">MiniGameItem 字段说明</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>provider</td>
+                            <td>string</td>
+                            <td data-zh="迷你游戏提供商名称" data-en="Name of the mini game provider">迷你游戏提供商名称</td>
+                        </tr>
+                        <tr>
+                            <td>vendorCode</td>
+                            <td>string</td>
+                            <td data-zh="供应商编码，唯一标识该迷你游戏供应商" data-en="Vendor code, uniquely identifies the mini game provider">供应商编码，唯一标识该迷你游戏供应商</td>
+                        </tr>
+                        <tr>
+                            <td>gameId</td>
+                            <td>string</td>
+                            <td data-zh="第三方迷你游戏 ID（如有），有些供应商可能留空" data-en="Third-party mini game ID if provided; may be empty for some vendors">第三方迷你游戏 ID（如有），有些供应商可能留空</td>
+                        </tr>
+                        <tr>
+                            <td>gameCode</td>
+                            <td>string</td>
+                            <td data-zh="迷你游戏编码，用于在其他接口中引用该迷你游戏" data-en="Mini game code used to reference this mini game in other APIs">迷你游戏编码，用于在其他接口中引用该迷你游戏</td>
+                        </tr>
+                        <tr>
+                            <td>gameName</td>
+                            <td>string</td>
+                            <td data-zh="迷你游戏显示名称" data-en="Display name of the mini game">迷你游戏显示名称</td>
+                        </tr>
+                        <tr>
+                            <td>slug</td>
+                            <td>string</td>
+                            <td data-zh="迷你游戏短标识/别名，用于前端路由或展示" data-en="Short identifier/slug used for routing or display">迷你游戏短标识/别名，用于前端路由或展示</td>
+                        </tr>
+                        <tr>
+                            <td>thumbnail</td>
+                            <td>string</td>
+                            <td data-zh="迷你游戏缩略图 URL" data-en="Thumbnail image URL of the mini game">迷你游戏缩略图 URL</td>
+                        </tr>
+                        <tr>
+                            <td>isNew</td>
+                            <td>boolean</td>
+                            <td data-zh="是否为新迷你游戏，用于前端打 NEW 标签" data-en="Whether this is a newly released mini game, useful for showing a NEW badge in frontend">是否为新迷你游戏，用于前端打 NEW 标签</td>
+                        </tr>
+                        <tr>
+                            <td>underMaintenance</td>
+                            <td>boolean</td>
+                            <td data-zh="迷你游戏当前是否维护中，如果为 true 建议前端禁用进入" data-en="Whether the mini game is currently under maintenance; if true, the game should not be enterable">迷你游戏当前是否维护中，如果为 true 建议前端禁用进入</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- 2.5 游戏详情 -->
@@ -1456,6 +1666,97 @@ Response:
     "errorCode": 0
 }</code></pre>
                 </div>
+
+                <h3 data-zh="响应字段说明" data-en="Response field description">响应字段说明</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>success</td>
+                            <td>boolean</td>
+                            <td data-zh="请求是否成功处理：true 表示成功，false 表示失败" data-en="Whether the request was processed successfully: true means success, false means failure">请求是否成功处理：true 表示成功，false 表示失败</td>
+                        </tr>
+                        <tr>
+                            <td>message</td>
+                            <td>GameDetail</td>
+                            <td data-zh="游戏详情对象，字段说明见下表" data-en="Game detail object; see the table below for field details">游戏详情对象，字段说明见下表</td>
+                        </tr>
+                        <tr>
+                            <td>errorCode</td>
+                            <td>int</td>
+                            <td data-zh="错误码：0 表示成功，非 0 表示对应错误代码" data-en="Error code: 0 means success, non-zero means specific error code">错误码：0 表示成功，非 0 表示对应错误代码</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 data-zh="GameDetail 字段说明" data-en="Fields of GameDetail">GameDetail 字段说明</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>provider</td>
+                            <td>string</td>
+                            <td data-zh="游戏提供商名称，例如 Evolution" data-en="Name of the game provider, e.g. Evolution">游戏提供商名称，例如 Evolution</td>
+                        </tr>
+                        <tr>
+                            <td>vendorCode</td>
+                            <td>string</td>
+                            <td data-zh="供应商编码，唯一标识该供应商" data-en="Vendor code, uniquely identifies the provider">供应商编码，唯一标识该供应商</td>
+                        </tr>
+                        <tr>
+                            <td>gameId</td>
+                            <td>string</td>
+                            <td data-zh="第三方游戏 ID（如有），有些供应商可能留空" data-en="Third-party game ID if provided; may be empty for some vendors">第三方游戏 ID（如有），有些供应商可能留空</td>
+                        </tr>
+                        <tr>
+                            <td>gameCode</td>
+                            <td>string</td>
+                            <td data-zh="游戏编码，用于在其他接口中引用该游戏" data-en="Game code used to reference this game in other APIs">游戏编码，用于在其他接口中引用该游戏</td>
+                        </tr>
+                        <tr>
+                            <td>gameName</td>
+                            <td>string</td>
+                            <td data-zh="游戏显示名称" data-en="Display name of the game">游戏显示名称</td>
+                        </tr>
+                        <tr>
+                            <td>slug</td>
+                            <td>string</td>
+                            <td data-zh="游戏短标识/别名，用于前端路由或展示" data-en="Short identifier/slug used for routing or display">游戏短标识/别名，用于前端路由或展示</td>
+                        </tr>
+                        <tr>
+                            <td>thumbnail</td>
+                            <td>string</td>
+                            <td data-zh="游戏缩略图 URL" data-en="Thumbnail image URL of the game">游戏缩略图 URL</td>
+                        </tr>
+                        <tr>
+                            <td>updatedAt</td>
+                            <td>string(UTC)</td>
+                            <td data-zh="该游戏信息最后更新时间（UTC 时间）" data-en="Last updated time of this game information (UTC time)">该游戏信息最后更新时间（UTC 时间）</td>
+                        </tr>
+                        <tr>
+                            <td>isNew</td>
+                            <td>boolean</td>
+                            <td data-zh="是否为新游戏，用于前端打 NEW 标签" data-en="Whether this is a newly released game, useful for showing a NEW badge in frontend">是否为新游戏，用于前端打 NEW 标签</td>
+                        </tr>
+                        <tr>
+                            <td>underMaintenance</td>
+                            <td>boolean</td>
+                            <td data-zh="游戏当前是否维护中，如果为 true 建议前端禁用进入" data-en="Whether the game is currently under maintenance; if true, the game should not be enterable">游戏当前是否维护中，如果为 true 建议前端禁用进入</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- 2.6 获取启动 URL -->
@@ -1539,10 +1840,38 @@ Response:
     "errorCode": 0
 }</code></pre>
                 </div>
+
+                <h3 data-zh="响应字段说明" data-en="Response field description">响应字段说明</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>success</td>
+                            <td>boolean</td>
+                            <td data-zh="请求是否成功处理：true 表示成功，false 表示失败" data-en="Whether the request was processed successfully: true means success, false means failure">请求是否成功处理：true 表示成功，false 表示失败</td>
+                        </tr>
+                        <tr>
+                            <td>message</td>
+                            <td>string(URL)</td>
+                            <td data-zh="用于前端直接跳转的游戏启动 URL" data-en="Game launch URL that frontend can redirect the player to directly">用于前端直接跳转的游戏启动 URL</td>
+                        </tr>
+                        <tr>
+                            <td>errorCode</td>
+                            <td>int</td>
+                            <td data-zh="错误码：0 表示成功，非 0 表示对应错误代码" data-en="Error code: 0 means success, non-zero means specific error code">错误码：0 表示成功，非 0 表示对应错误代码</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- 2.7 获取投注历史（按日期）已弃用 -->
-            <div class="content-section" id="betting-history-date">
+            <!-- <div class="content-section" id="betting-history-date">
                 <h2 class="section-title" data-zh="2.7 获取投注历史（按日期）已弃用" data-en="2.7 Get Betting History (by date) deprecated">2.7 获取投注历史（按日期）已弃用</h2>
                 <div class="description" data-zh="此端点已弃用，请使用 2.20 获取投注历史 V2（按日期）" data-en="This endpoint is deprecated, please use 2.20 Get Betting History V2 (by date)">
                     此端点已弃用，请使用 2.20 获取投注历史 V2（按日期）
@@ -1551,7 +1880,7 @@ Response:
                     <span class="api-method">POST</span>
                     <span class="api-path">/betting/history/by-date</span>
                 </div>
-            </div>
+            </div> -->
 
             <!-- 2.8 获取投注历史（按 ID） -->
             <div class="content-section" id="betting-history-id">
@@ -1614,10 +1943,121 @@ Response:
     }
 }</code></pre>
                 </div>
+
+            <h3 data-zh="响应字段说明" data-en="Response field description">响应字段说明</h3>
+            <table class="param-table">
+                <thead>
+                    <tr>
+                        <th data-zh="名称" data-en="Name">名称</th>
+                        <th data-zh="类型" data-en="Type">类型</th>
+                        <th data-zh="描述" data-en="Description">描述</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>success</td>
+                        <td>boolean</td>
+                        <td data-zh="请求是否成功处理：true 表示成功，false 表示失败" data-en="Whether the request was processed successfully: true means success, false means failure">请求是否成功处理：true 表示成功，false 表示失败</td>
+                    </tr>
+                    <tr>
+                        <td>message</td>
+                        <td>BetHistoryDetail</td>
+                        <td data-zh="单条投注历史详情对象，字段说明见下表" data-en="Single betting history detail object; see the table below for field details">单条投注历史详情对象，字段说明见下表</td>
+                    </tr>
+                    <tr>
+                        <td>errorCode</td>
+                        <td>int</td>
+                        <td data-zh="错误码：0 表示成功，非 0 表示对应错误代码" data-en="Error code: 0 means success, non-zero means specific error code">错误码：0 表示成功，非 0 表示对应错误代码</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 data-zh="BetHistoryDetail 字段说明" data-en="Fields of BetHistoryDetail">BetHistoryDetail 字段说明</h3>
+            <table class="param-table">
+                <thead>
+                    <tr>
+                        <th data-zh="名称" data-en="Name">名称</th>
+                        <th data-zh="类型" data-en="Type">类型</th>
+                        <th data-zh="描述" data-en="Description">描述</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>id</td>
+                        <td>long</td>
+                        <td data-zh="投注历史主键 ID" data-en="Primary ID of the betting history record">投注历史主键 ID</td>
+                    </tr>
+                    <tr>
+                        <td>userCode</td>
+                        <td>string</td>
+                        <td data-zh="来自赌场运营商的用户唯一标识" data-en="User unique identifier from the Casino operator">来自赌场运营商的用户唯一标识</td>
+                    </tr>
+                    <tr>
+                        <td>roundId</td>
+                        <td>string</td>
+                        <td data-zh="游戏回合标识，同一玩家唯一标识一个游戏回合" data-en="Game round identifier, uniquely identifies a game round for the same player">游戏回合标识，同一玩家唯一标识一个游戏回合</td>
+                    </tr>
+                    <tr>
+                        <td>gameCode</td>
+                        <td>string</td>
+                        <td data-zh="游戏编码，唯一标识某一个游戏" data-en="Game code, uniquely identifies a specific game">游戏编码，唯一标识某一个游戏</td>
+                    </tr>
+                    <tr>
+                        <td>gameName</td>
+                        <td>string</td>
+                        <td data-zh="游戏显示名称" data-en="Display name of the game">游戏显示名称</td>
+                    </tr>
+                    <tr>
+                        <td>vendorCode</td>
+                        <td>string</td>
+                        <td data-zh="供应商编码，唯一标识提供该游戏的供应商" data-en="Vendor code, uniquely identifies the provider of the game">供应商编码，唯一标识提供该游戏的供应商</td>
+                    </tr>
+                    <tr>
+                        <td>betAmount</td>
+                        <td>decimal</td>
+                        <td data-zh="本次投注金额" data-en="Bet amount of this betting record">本次投注金额</td>
+                    </tr>
+                    <tr>
+                        <td>winAmount</td>
+                        <td>decimal</td>
+                        <td data-zh="本次获奖（派彩金额），如果未中奖则为 0" data-en="Win (payout) amount of this betting record; 0 if no win">本次获奖（派彩金额），如果未中奖则为 0</td>
+                    </tr>
+                    <tr>
+                        <td>beforeBalance</td>
+                        <td>decimal</td>
+                        <td data-zh="该投注结算前的用户余额" data-en="User balance before this bet was settled">该投注结算前的用户余额</td>
+                    </tr>
+                    <tr>
+                        <td>afterBalance</td>
+                        <td>decimal</td>
+                        <td data-zh="该投注结算后的用户余额" data-en="User balance after this bet was settled">该投注结算后的用户余额</td>
+                    </tr>
+                    <tr>
+                        <td>detail</td>
+                        <td>string</td>
+                        <td data-zh="投注详情或附加说明（如有）" data-en="Bet detail or additional description, if any">投注详情或附加说明（如有）</td>
+                    </tr>
+                    <tr>
+                        <td>status</td>
+                        <td>int</td>
+                        <td data-zh="投注状态：例如 1 表示已结算等（具体状态码以双方约定为准）" data-en="Bet status: for example, 1 means settled, etc. (exact codes depend on the agreed specification)">投注状态：例如 1 表示已结算等（具体状态码以双方约定为准）</td>
+                    </tr>
+                    <tr>
+                        <td>createdAt</td>
+                        <td>long</td>
+                        <td data-zh="记录创建时间（时间戳）" data-en="Record creation time (timestamp)">记录创建时间（时间戳）</td>
+                    </tr>
+                    <tr>
+                        <td>updatedAt</td>
+                        <td>long</td>
+                        <td data-zh="记录最后更新时间（时间戳）" data-en="Record last updated time (timestamp)">记录最后更新时间（时间戳）</td>
+                    </tr>
+                </tbody>
+            </table>
             </div>
 
             <!-- 2.9 获取交易历史（按 ID） -->
-            <div class="content-section" id="transaction-history">
+            <!-- <div class="content-section" id="transaction-history">
                 <h2 class="section-title" data-zh="2.9 获取交易历史（按 ID）" data-en="2.9 Get Transaction History (by Id)">2.9 获取交易历史（按 ID）</h2>
                 <div class="description" data-zh="使用此方法，赌场运营商将按历史 ID 获取交易历史详情。" data-en="Using this method Casino Operator will get the detail transaction history by history id.">
                     使用此方法，赌场运营商将按历史 ID 获取交易历史详情。
@@ -1680,7 +2120,7 @@ Response:
     ]
 }</code></pre>
                 </div>
-            </div>
+            </div> -->
 
             <!-- 2.10 获取代理余额 -->
             <div class="content-section" id="agent-balance">
@@ -1705,6 +2145,34 @@ Response:
     "success": true
 }</code></pre>
                 </div>
+
+                <h3 data-zh="响应字段说明" data-en="Response field description">响应字段说明</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>success</td>
+                            <td>boolean</td>
+                            <td data-zh="请求是否成功处理：true 表示成功，false 表示失败" data-en="Whether the request was processed successfully: true means success, false means failure">请求是否成功处理：true 表示成功，false 表示失败</td>
+                        </tr>
+                        <tr>
+                            <td>message</td>
+                            <td>decimal</td>
+                            <td data-zh="当前代理可用余额" data-en="Current available balance of the agent">当前代理可用余额</td>
+                        </tr>
+                        <tr>
+                            <td>errorCode</td>
+                            <td>int</td>
+                            <td data-zh="错误码：0 表示成功，非 0 表示对应错误代码" data-en="Error code: 0 means success, non-zero means specific error code">错误码：0 表示成功，非 0 表示对应错误代码</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- 2.11 创建用户 -->
@@ -1800,6 +2268,34 @@ Response:
     "errorCode": 0
 }</code></pre>
                 </div>
+
+                <h3 data-zh="响应字段说明" data-en="Response field description">响应字段说明</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>success</td>
+                            <td>boolean</td>
+                            <td data-zh="请求是否成功处理：true 表示成功，false 表示失败" data-en="Whether the request was processed successfully: true means success, false means failure">请求是否成功处理：true 表示成功，false 表示失败</td>
+                        </tr>
+                        <tr>
+                            <td>message</td>
+                            <td>decimal</td>
+                            <td data-zh="当前玩家在转账钱包中的余额" data-en="Current player balance in transfer wallet">当前玩家在转账钱包中的余额</td>
+                        </tr>
+                        <tr>
+                            <td>errorCode</td>
+                            <td>int</td>
+                            <td data-zh="错误码：0 表示成功，非 0 表示对应错误代码" data-en="Error code: 0 means success, non-zero means specific error code">错误码：0 表示成功，非 0 表示对应错误代码</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- 2.13 存款 -->
@@ -1868,6 +2364,34 @@ Response:
     "errorCode": 0
 }</code></pre>
                 </div>
+
+                <h3 data-zh="响应字段说明" data-en="Response field description">响应字段说明</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>success</td>
+                            <td>boolean</td>
+                            <td data-zh="请求是否成功处理：true 表示成功，false 表示失败" data-en="Whether the request was processed successfully: true means success, false means failure">请求是否成功处理：true 表示成功，false 表示失败</td>
+                        </tr>
+                        <tr>
+                            <td>message</td>
+                            <td>decimal</td>
+                            <td data-zh="存款操作完成后的玩家最新余额" data-en="Player latest balance after the deposit operation is completed">存款操作完成后的玩家最新余额</td>
+                        </tr>
+                        <tr>
+                            <td>errorCode</td>
+                            <td>int</td>
+                            <td data-zh="错误码：0 表示成功，非 0 表示对应错误代码" data-en="Error code: 0 means success, non-zero means specific error code">错误码：0 表示成功，非 0 表示对应错误代码</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- 2.14 提款 -->
@@ -1936,6 +2460,34 @@ Response:
     "errorCode": 0
 }</code></pre>
                 </div>
+
+                <h3 data-zh="响应字段说明" data-en="Response field description">响应字段说明</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>success</td>
+                            <td>boolean</td>
+                            <td data-zh="请求是否成功处理：true 表示成功，false 表示失败" data-en="Whether the request was processed successfully: true means success, false means failure">请求是否成功处理：true 表示成功，false 表示失败</td>
+                        </tr>
+                        <tr>
+                            <td>message</td>
+                            <td>decimal</td>
+                            <td data-zh="提款操作完成后的玩家最新余额" data-en="Player latest balance after the withdraw operation is completed">提款操作完成后的玩家最新余额</td>
+                        </tr>
+                        <tr>
+                            <td>errorCode</td>
+                            <td>int</td>
+                            <td data-zh="错误码：0 表示成功，非 0 表示对应错误代码" data-en="Error code: 0 means success, non-zero means specific error code">错误码：0 表示成功，非 0 表示对应错误代码</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- 2.15 全部提款 -->
@@ -1990,6 +2542,34 @@ Response:
     "errorCode": 0
 }</code></pre>
                 </div>
+
+                <h3 data-zh="响应字段说明" data-en="Response field description">响应字段说明</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>success</td>
+                            <td>boolean</td>
+                            <td data-zh="请求是否成功处理：true 表示成功，false 表示失败" data-en="Whether the request was processed successfully: true means success, false means failure">请求是否成功处理：true 表示成功，false 表示失败</td>
+                        </tr>
+                        <tr>
+                            <td>message</td>
+                            <td>decimal</td>
+                            <td data-zh="全部提款操作完成后的玩家最新余额（通常为 0）" data-en="Player latest balance after the withdraw-all operation is completed (usually 0)">全部提款操作完成后的玩家最新余额（通常为 0）</td>
+                        </tr>
+                        <tr>
+                            <td>errorCode</td>
+                            <td>int</td>
+                            <td data-zh="错误码：0 表示成功，非 0 表示对应错误代码" data-en="Error code: 0 means success, non-zero means specific error code">错误码：0 表示成功，非 0 表示对应错误代码</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- 2.16 获取用户余额日志 -->
@@ -2045,6 +2625,77 @@ Response:
     "errorCode": 0
 }</code></pre>
                 </div>
+
+                <h3 data-zh="响应字段说明" data-en="Response field description">响应字段说明</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>success</td>
+                            <td>boolean</td>
+                            <td data-zh="请求是否成功处理：true 表示成功，false 表示失败" data-en="Whether the request was processed successfully: true means success, false means failure">请求是否成功处理：true 表示成功，false 表示失败</td>
+                        </tr>
+                        <tr>
+                            <td>message</td>
+                            <td>BalanceHistoryDetail</td>
+                            <td data-zh="单条余额日志详情对象，字段说明见下表" data-en="Single balance history detail object; see the table below for field details">单条余额日志详情对象，字段说明见下表</td>
+                        </tr>
+                        <tr>
+                            <td>errorCode</td>
+                            <td>int</td>
+                            <td data-zh="错误码：0 表示成功，非 0 表示对应错误代码" data-en="Error code: 0 means success, non-zero means specific error code">错误码：0 表示成功，非 0 表示对应错误代码</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 data-zh="BalanceHistoryDetail 字段说明" data-en="Fields of BalanceHistoryDetail">BalanceHistoryDetail 字段说明</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>userCode</td>
+                            <td>string</td>
+                            <td data-zh="来自赌场运营商的用户唯一标识" data-en="User unique identifier from the Casino operator">来自赌场运营商的用户唯一标识</td>
+                        </tr>
+                        <tr>
+                            <td>amount</td>
+                            <td>decimal</td>
+                            <td data-zh="本次操作涉及的金额，正数表示增加余额，负数表示减少余额" data-en="Amount involved in this operation; positive means increase balance, negative means decrease balance">本次操作涉及的金额，正数表示增加余额，负数表示减少余额</td>
+                        </tr>
+                        <tr>
+                            <td>agentBeforeBalance</td>
+                            <td>decimal</td>
+                            <td data-zh="本次操作前代理的余额" data-en="Agent balance before this operation">本次操作前代理的余额</td>
+                        </tr>
+                        <tr>
+                            <td>userBeforeBalance</td>
+                            <td>decimal</td>
+                            <td data-zh="本次操作前玩家的余额" data-en="User balance before this operation">本次操作前玩家的余额</td>
+                        </tr>
+                        <tr>
+                            <td>type</td>
+                            <td>int</td>
+                            <td data-zh="操作类型：例如 1 表示存款，2 表示提款等（具体取值以双方约定为准）" data-en="Operation type: e.g. 1 for deposit, 2 for withdraw, etc. (exact values depend on agreed specification)">操作类型：例如 1 表示存款，2 表示提款等（具体取值以双方约定为准）</td>
+                        </tr>
+                        <tr>
+                            <td>createdAt</td>
+                            <td>long</td>
+                            <td data-zh="记录创建时间（时间戳）" data-en="Record creation time (timestamp)">记录创建时间（时间戳）</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- 2.17 设置用户 RTP -->
@@ -2224,6 +2875,34 @@ Response:
                 <div class="description" data-zh="使用此方法，赌场运营商将按日期获取投注历史列表（最多 2000 条记录）。可以获取最多 7 天前的历史记录。此 API 允许每 60 秒最多 20 个请求。超过此限制可能会导致临时限制或请求被拒绝。" data-en="Using this method Casino Operator will get the list of betting history by date(max 2000 records). It is possible to get histories up to 7 days ago. This API allows a maximum of 20 requests per 60 seconds. Exceeding this limit may result in temporary throttling or request rejection.">
                     使用此方法，赌场运营商将按日期获取投注历史列表（最多 2000 条记录）。可以获取最多 7 天前的历史记录。此 API 允许每 60 秒最多 20 个请求。超过此限制可能会导致临时限制或请求被拒绝。
                 </div>
+
+                <div class="note">
+                    <strong data-zh="调用流程说明（基于 startDate、updateTime 与 nextStartDate）" data-en="Call flow description (based on startDate, updateTime and nextStartDate)">调用流程说明（基于 startDate、updateTime 与 nextStartDate）</strong><br><br>
+                    <strong data-zh="一、首次调用" data-en="1. First call">一、首次调用</strong><br>
+                    <span data-zh="请将对应数据的 " data-en="Please pass the ">请将对应数据的 </span><code>updateTime</code>
+                    <span data-zh=" 作为 " data-en=" as "> 作为 </span><code>startDate</code>，
+                    <span data-zh="并确保传入的时区为 " data-en="and make sure the timezone is ">并确保传入的时区为 </span>
+                    <span style="color:red;" data-zh="UTC+0（特别注意！）" data-en="UTC+0 (very important!)">UTC+0（特别注意！）</span>。<br><br>
+
+                    <strong data-zh="二、保存 nextStartDate" data-en="2. Save nextStartDate">二、保存 nextStartDate</strong><br>
+                    <span data-zh="接口返回的 " data-en="Save the ">接口返回的 </span><code>nextStartDate</code>
+                    <span data-zh=" 请务必保存下来，作为下次请求时传入的时间参数。" data-en=" returned by the API and use it as the time parameter for the next request."> 请务必保存下来，作为下次请求时传入的时间参数。</span><br><br>
+
+                    <strong data-zh="三、根据返回数据决定是否继续请求" data-en="3. Decide whether to continue based on response data">三、根据返回数据决定是否继续请求</strong><br>
+                    <span data-zh="1）如果本次返回有数据，且数量等于 " data-en="(1) If this response contains data and the number of records is equal to ">1）如果本次返回有数据，且数量等于 </span><code>limit</code>
+                    <span data-zh=" 参数的值，可以继续使用返回的 " data-en=" parameter, you may continue requesting using the returned "> 参数的值，可以继续使用返回的 </span><code>nextStartDate</code>
+                    <span data-zh=" 发起下一次请求（建议做适当的请求频率控制，例如每 " data-en=" to make the next request (it is recommended to throttle the frequency appropriately, for example one request every "> 发起下一次请求（建议做适当的请求频率控制，例如每 </span><span style="color:red;" data-zh="5 秒" data-en="5 seconds">5 秒</span><span data-zh=" 一次）。" data-en=")."> 一次）。</span><br>
+                    <span data-zh="2）如果本次返回有数据，但数量小于 " data-en="(2) If this response contains data but the number of records is less than ">2）如果本次返回有数据，但数量小于 </span><code>limit</code>
+                    <span data-zh=" 参数的值，请停止继续请求。" data-en=" parameter, please stop making further requests."> 参数的值，请停止继续请求。</span><br>
+                    <span data-zh="3）如果本次没有任何数据，请停止请求，此时返回的 " data-en="(3) If there is no data in this response, stop requesting. In this case, the returned ">3）如果本次没有任何数据，请停止请求，此时返回的 </span><code>nextStartDate</code>
+                    <span data-zh=" 为当前时间减 5 分钟。" data-en=" is current time minus 5 minutes."> 为当前时间减 5 分钟。</span><br><br>
+
+                    <strong data-zh="四、时间传入超过当前时间的处理" data-en="4. When the input time is later than current time">四、时间传入超过当前时间的处理</strong><br>
+                    <span data-zh="当传入的时间晚于当前系统时间时，接口会返回的 " data-en="If the time you pass in is later than the current system time, the API will return ">当传入的时间晚于当前系统时间时，接口会返回的 </span><code>nextStartDate</code>
+                    <span data-zh=" 等于本次传入的当前时间。" data-en=" with a value equal to the time you passed in."> 等于本次传入的当前时间。</span>
+                    <span style="color:red;" data-zh="请特别留意，请勿传错对应的时间。" data-en="Please pay special attention and do NOT send the wrong time.">请特别留意，请勿传错对应的时间。</span>
+                </div>
+
                 <div class="api-endpoint">
                     <span class="api-method">POST</span>
                     <span class="api-path">/betting/history/by-date-v2</span>
@@ -2289,8 +2968,215 @@ Response:
             }
         ]
     }
-}</code></pre>
+                }</code></pre>
                 </div>
+
+                <h3 data-zh="响应字段说明" data-en="Response field description">响应字段说明</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>success</td>
+                            <td>boolean</td>
+                            <td data-zh="请求是否成功处理：true 表示成功，false 表示失败" data-en="Whether the request was processed successfully: true means success, false means failure">请求是否成功处理：true 表示成功，false 表示失败</td>
+                        </tr>
+                        <tr>
+                            <td>message</td>
+                            <td>array&lt;GameItem&gt;</td>
+                            <td data-zh="游戏列表，每一项代表一个可用游戏，字段说明见下表" data-en="List of games; each item represents an available game, see the table below for field details">游戏列表，每一项代表一个可用游戏，字段说明见下表</td>
+                        </tr>
+                        <tr>
+                            <td>errorCode</td>
+                            <td>int</td>
+                            <td data-zh="错误码：0 表示成功，非 0 表示对应错误代码" data-en="Error code: 0 means success, non-zero means specific error code">错误码：0 表示成功，非 0 表示对应错误代码</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 data-zh="GameItem 字段说明" data-en="Fields of GameItem">GameItem 字段说明</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>provider</td>
+                            <td>string</td>
+                            <td data-zh="游戏提供商名称，例如 Evolution" data-en="Name of the game provider, e.g. Evolution">游戏提供商名称，例如 Evolution</td>
+                        </tr>
+                        <tr>
+                            <td>vendorCode</td>
+                            <td>string</td>
+                            <td data-zh="供应商编码，唯一标识该供应商" data-en="Vendor code, uniquely identifies the provider">供应商编码，唯一标识该供应商</td>
+                        </tr>
+                        <tr>
+                            <td>gameId</td>
+                            <td>string</td>
+                            <td data-zh="第三方游戏 ID（如有），有些供应商可能留空" data-en="Third-party game ID if provided; may be empty for some vendors">第三方游戏 ID（如有），有些供应商可能留空</td>
+                        </tr>
+                        <tr>
+                            <td>gameCode</td>
+                            <td>string</td>
+                            <td data-zh="游戏编码，用于在其他接口中引用该游戏" data-en="Game code used to reference this game in other APIs">游戏编码，用于在其他接口中引用该游戏</td>
+                        </tr>
+                        <tr>
+                            <td>gameName</td>
+                            <td>string</td>
+                            <td data-zh="游戏显示名称" data-en="Display name of the game">游戏显示名称</td>
+                        </tr>
+                        <tr>
+                            <td>slug</td>
+                            <td>string</td>
+                            <td data-zh="游戏短标识/别名，用于前端路由或展示" data-en="Short identifier/slug used for routing or display">游戏短标识/别名，用于前端路由或展示</td>
+                        </tr>
+                        <tr>
+                            <td>thumbnail</td>
+                            <td>string</td>
+                            <td data-zh="游戏缩略图 URL" data-en="Thumbnail image URL of the game">游戏缩略图 URL</td>
+                        </tr>
+                        <tr>
+                            <td>updatedAt</td>
+                            <td>string(UTC)</td>
+                            <td data-zh="该游戏信息最后更新时间（UTC 时间）" data-en="Last updated time of this game information (UTC time)">该游戏信息最后更新时间（UTC 时间）</td>
+                        </tr>
+                        <tr>
+                            <td>isNew</td>
+                            <td>boolean</td>
+                            <td data-zh="是否为新游戏，用于前端打 NEW 标签" data-en="Whether this is a newly released game, useful for showing a NEW badge in frontend">是否为新游戏，用于前端打 NEW 标签</td>
+                        </tr>
+                        <tr>
+                            <td>underMaintenance</td>
+                            <td>boolean</td>
+                            <td data-zh="游戏当前是否维护中，如果为 true 建议前端禁用进入" data-en="Whether the game is currently under maintenance; if true, the game should not be enterable">游戏当前是否维护中，如果为 true 建议前端禁用进入</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 data-zh="响应字段说明" data-en="Response field description">响应字段说明</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>success</td>
+                            <td>boolean</td>
+                            <td data-zh="请求是否成功处理：true 表示成功，false 表示失败" data-en="Whether the request was processed successfully: true means success, false means failure">请求是否成功处理：true 表示成功，false 表示失败</td>
+                        </tr>
+                        <tr>
+                            <td>errorCode</td>
+                            <td>int</td>
+                            <td data-zh="错误码：0 表示成功，非 0 表示对应错误代码" data-en="Error code: 0 means success, non-zero means specific error code">错误码：0 表示成功，非 0 表示对应错误代码</td>
+                        </tr>
+                        <tr>
+                            <td>message.limit</td>
+                            <td>int</td>
+                            <td data-zh="本次查询的最大记录数（与请求中的 limit 对应）" data-en="Maximum number of records for this query (corresponding to the limit in the request)">本次查询的最大记录数（与请求中的 limit 对应）</td>
+                        </tr>
+                        <tr>
+                            <td>message.nextStartDate</td>
+                            <td>string(UTC+0)</td>
+                            <td data-zh="下一次查询时应传入的 startDate（UTC+0 时间），请根据上方调用流程说明正确使用" data-en="The startDate (UTC+0 time) that should be used for the next query; please follow the call flow description above to use it correctly">下一次查询时应传入的 startDate（UTC+0 时间），请根据上方调用流程说明正确使用</td>
+                        </tr>
+                        <tr>
+                            <td>message.histories</td>
+                            <td>array&lt;HistoryItem&gt;</td>
+                            <td data-zh="投注历史列表，每一项为一条投注记录，字段说明见下表" data-en="List of betting histories; each item is one betting record, see the table below for field details">投注历史列表，每一项为一条投注记录，字段说明见下表</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 data-zh="message.histories 单条记录字段说明" data-en="Fields of one item in message.histories">message.histories 单条记录字段说明</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>id</td>
+                            <td>long</td>
+                            <td data-zh="投注历史主键 ID" data-en="Primary ID of the betting history record">投注历史主键 ID</td>
+                        </tr>
+                        <tr>
+                            <td>userCode</td>
+                            <td>string</td>
+                            <td data-zh="来自赌场运营商的用户唯一标识" data-en="User unique identifier from the Casino operator">来自赌场运营商的用户唯一标识</td>
+                        </tr>
+                        <tr>
+                            <td>roundId</td>
+                            <td>string</td>
+                            <td data-zh="游戏回合标识，同一玩家唯一标识一个游戏回合" data-en="Game round identifier, uniquely identifies a game round for the same player">游戏回合标识，同一玩家唯一标识一个游戏回合</td>
+                        </tr>
+                        <tr>
+                            <td>gameCode</td>
+                            <td>string</td>
+                            <td data-zh="游戏编码，唯一标识某一个游戏" data-en="Game code, uniquely identifies a specific game">游戏编码，唯一标识某一个游戏</td>
+                        </tr>
+                        <tr>
+                            <td>vendorCode</td>
+                            <td>string</td>
+                            <td data-zh="供应商编码，唯一标识提供该游戏的供应商" data-en="Vendor code, uniquely identifies the provider of the game">供应商编码，唯一标识提供该游戏的供应商</td>
+                        </tr>
+                        <tr>
+                            <td>betAmount</td>
+                            <td>decimal</td>
+                            <td data-zh="本次投注金额" data-en="Bet amount of this betting record">本次投注金额</td>
+                        </tr>
+                        <tr>
+                            <td>winAmount</td>
+                            <td>decimal</td>
+                            <td data-zh="本次获奖（派彩金额），如果未中奖则为 0" data-en="Win (payout) amount of this betting record; 0 if no win">本次获奖（派彩金额），如果未中奖则为 0</td>
+                        </tr>
+                        <tr>
+                            <td>beforeBalance</td>
+                            <td>decimal</td>
+                            <td data-zh="该投注结算前的用户余额" data-en="User balance before this bet was settled">该投注结算前的用户余额</td>
+                        </tr>
+                        <tr>
+                            <td>afterBalance</td>
+                            <td>decimal</td>
+                            <td data-zh="该投注结算后的用户余额" data-en="User balance after this bet was settled">该投注结算后的用户余额</td>
+                        </tr>
+                        <tr>
+                            <td>detail</td>
+                            <td>string</td>
+                            <td data-zh="投注详情或附加说明（如有）" data-en="Bet detail or additional description, if any">投注详情或附加说明（如有）</td>
+                        </tr>
+                        <tr>
+                            <td>status</td>
+                            <td>int</td>
+                            <td data-zh="投注状态：例如 1 表示已结算等（具体状态码以双方约定为准）" data-en="Bet status: for example, 1 means settled, etc. (exact codes depend on the agreed specification)">投注状态：例如 1 表示已结算等（具体状态码以双方约定为准）</td>
+                        </tr>
+                        <tr>
+                            <td>createdAt</td>
+                            <td>long</td>
+                            <td data-zh="记录创建时间（时间戳）" data-en="Record creation time (timestamp)">记录创建时间（时间戳）</td>
+                        </tr>
+                        <tr>
+                            <td>updatedAt</td>
+                            <td>long</td>
+                            <td data-zh="记录最后更新时间（时间戳）" data-en="Record last updated time (timestamp)">记录最后更新时间（时间戳）</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- 2.21 获取投注详情页面 URL -->
@@ -3456,5 +4342,4 @@ Response:
     </script>
 </body>
 </html>
-
 
