@@ -1132,6 +1132,18 @@ Host: xxx.com
                 <div class="description" data-zh="使用此方法，赌场运营商将获得身份验证承载令牌。此 API 允许每 30 秒最多 5 个请求。超过此限制可能会导致临时限制或请求被拒绝。注意：过多的令牌生成请求可能导致账户被阻止。获取到token之后请缓存起来复用，用于后续其他API的请求" data-en="Using this method Casino Operator will get the authentication bearer token. This API allows a maximum of 5 requests per 30 seconds. Exceeding this limit may result in temporary throttling or request rejection. Caution: Excessive requests for token generation may result in account blocking.After obtaining the token, please cache it for reuse in subsequent API requests.">
                     使用此方法，赌场运营商将获得身份验证承载令牌。此 API 允许每 30 秒最多 5 个请求。超过此限制可能会导致临时限制或请求被拒绝。注意：过多的令牌生成请求可能导致账户被阻止。获取到token之后请缓存起来复用，用于后续其他API的请求
                 </div>
+                <span style="color:red;" data-zh="请求收到401的响应是空的，是什么原因？" data-en="I received an empty response with a 401 status code. What could be the reason?">请求收到401的响应是空的，是什么原因？</span><br>
+                <span style="color:red;" data-zh="有可能有两个原因：" data-en="There could be two reasons: ">
+                    有可能有两个原因：
+                </span>
+                <br/>
+                <strong style="color:red;" data-zh="1.请求API的IP未加白或者提供的IP不是实际请求的IP（请留意IPV4/IPV6）" data-en="1. The IP requesting the API is not on the whitelist or the provided IP is not the actual requesting IP (please pay attention to IPv4/IPv6)">
+                    1.请求API的IP未加白或者提供的IP不是实际请求的IP（请留意IPV4/IPV6）
+                </strong>
+                <br/>
+                <strong style="color:red;" data-zh="2.clientId，clientSecret输入错误，或者和clientId不匹配" data-en="2. The clientSecret is entered incorrectly and does not match the clientId">
+                    2.clientId，clientSecret输入错误，或者和clientId不匹配
+                </strong>
                 <div class="api-endpoint">
                     <span class="api-method">POST</span>
                     <span class="api-path">/auth/createtoken</span>
