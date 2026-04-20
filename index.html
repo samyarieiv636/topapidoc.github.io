@@ -244,6 +244,31 @@
             line-height: 1.8;
         }
 
+        .amount-notice {
+            margin: 15px 0;
+            padding: 12px 16px;
+            background: #fff5f5;
+            border: 1px solid #ff4d4f;
+            border-left: 4px solid #ff4d4f;
+            border-radius: 6px;
+            color: #c0392b;
+            font-weight: bold;
+            line-height: 1.8;
+        }
+
+        .amount-notice .notice-title {
+            margin-bottom: 6px;
+        }
+
+        .amount-notice ul {
+            margin: 6px 0 0 22px;
+            padding: 0;
+        }
+
+        .amount-notice li {
+            margin: 4px 0;
+        }
+
         .api-endpoint {
             background: #f9f9f9;
             padding: 15px;
@@ -669,6 +694,10 @@
                 <span class="tree-toggle"></span>
                 <span data-zh="1.4 API 速率限制策略" data-en="1.4 API Rate Limiting Policy">1.4 API 速率限制策略</span>
             </div>
+            <div class="tree-item level-2" data-section="special-notice">
+                <span class="tree-toggle"></span>
+                <span data-zh="1.5 特别提醒" data-en="1.5 Special Notice">1.5 特别提醒</span>
+            </div>
             <div class="tree-item level-1 expanded has-children" data-section="integration-api">
                 <span class="tree-toggle"></span>
                 <span data-zh="II. 集成 API" data-en="II. Integration API">II. 集成 API</span>
@@ -697,10 +726,6 @@
                 <span class="tree-toggle"></span>
                 <span data-zh="2.6 获取启动 URL" data-en="2.6 Get Launch URL">2.6 获取启动 URL</span>
             </div>
-            <!-- <div class="tree-item level-2" data-section="betting-history-date">
-                <span class="tree-toggle"></span>
-                <span data-zh="2.7 获取投注历史（按日期）已弃用" data-en="2.7 Get Betting History (by date) deprecated">2.7 获取投注历史（按日期）已弃用</span>
-            </div> -->
             <div class="tree-item level-2" data-section="betting-history-id">
                 <span class="tree-toggle"></span>
                 <span data-zh="2.8 获取投注历史（按 ID）" data-en="2.8 Get Betting History (by Id)">2.8 获取投注历史（按 ID）</span>
@@ -761,7 +786,6 @@
                 <span class="tree-toggle"></span>
                 <span data-zh="2.22 设置用户 RTP（批量）" data-en="2.22 Set Users RTP (Bulk)">2.22 设置用户 RTP（批量）</span>
             </div>
-<!-- 
             <div class="tree-item level-2" data-section="active-users">
                 <span class="tree-toggle"></span>
                 <span data-zh="2.23 获取活跃用户" data-en="2.23 Get Active Users">2.23 获取活跃用户</span>
@@ -777,7 +801,11 @@
             <div class="tree-item level-2" data-section="cancel-call">
                 <span class="tree-toggle"></span>
                 <span data-zh="2.26 取消调用" data-en="2.26 Cancel Call">2.26 取消调用</span>
-            </div> -->
+            </div>
+            <div class="tree-item level-2" data-section="call-histories">
+                <span class="tree-toggle"></span>
+                <span data-zh="2.27 调用历史" data-en="2.27 Call Histories">2.27 调用历史</span>
+            </div>
 
             <div class="tree-item level-1 expanded has-children" data-section="seamless-wallet-api">
                 <span class="tree-toggle"></span>
@@ -1072,7 +1100,7 @@
                     <span class="api-method">GET</span>
                     <span class="api-path">/api/v2/status</span>
                 </div>
-                <div class="description" data-zh="这是一个获取 API 当前状态信息的方法。如果一切正常，您将收到"OK"消息。否则，您会看到一些错误。" data-en="This is a method to get information about the current state of the API. If everything is OK, you will receive an 'OK' message. Otherwise, you'll see some error.">
+                <div class="description" data-zh="这是一个获取 API 当前状态信息的方法。如果一切正常，您将收到&quot;OK&quot;消息。否则，您会看到一些错误。" data-en="This is a method to get information about the current state of the API. If everything is OK, you will receive an 'OK' message. Otherwise, you'll see some error.">
                     这是一个获取 API 当前状态信息的方法。如果一切正常，您将收到"OK"消息。否则，您会看到一些错误。
                 </div>
                 <div class="code-block">
@@ -1124,6 +1152,21 @@ Host: xxx.com
                         </tr>
                     </tbody>
                 </table>
+            </div>
+
+            <!-- 1.5 特别提醒 -->
+            <div class="content-section" id="special-notice">
+                <h2 class="section-title" data-zh="1.5 特别提醒" data-en="1.5 Special Notice">1.5 特别提醒</h2>
+                <div class="description" data-zh="在进行任何涉及金额的 API 对接（包括转账 API 及无缝钱包回调）之前，请务必阅读以下提醒。" data-en="Before integrating any amount-related APIs (including the Transfer API and Seamless Wallet callbacks), please make sure to read the following notice.">
+                    在进行任何涉及金额的 API 对接（包括转账 API 及无缝钱包回调）之前，请务必阅读以下提醒。
+                </div>
+                <div class="amount-notice">
+                    <div class="notice-title" data-zh="温馨提示：" data-en="Important Notice:">温馨提示：</div>
+                    <ul>
+                        <li data-zh="如果您的币种比例不是 1:1（例如 VNDK 1:1000 的币种），在我方系统的 API、后台、玩家前台中您看到的数字 1 代表 1000 VND。如有不理解，请主动联系我们进行确认。" data-en="If your currency ratio is not 1:1 (for example, a currency such as VNDK with a 1:1000 ratio), the number 1 you see in our API, backend and player front-end represents 1000 VND. If anything is unclear, please contact us to confirm.">如果您的币种比例不是 1:1（例如 VNDK 1:1000 的币种），在我方系统的 API、后台、玩家前台中您看到的数字 1 代表 1000 VND。如有不理解，请主动联系我们进行确认。</li>
+                        <li data-zh="需要您做好调试核对，正式环境一旦产生数据即视为您已测试通过并认可该比例与规则，所有正式环境产生的数据都需要正常交收结算。" data-en="Please complete thorough debugging and verification. Once data is generated in the production environment, it is deemed that you have passed testing and accepted the ratio and rules; all data generated in production must be settled normally.">需要您做好调试核对，正式环境一旦产生数据即视为您已测试通过并认可该比例与规则，所有正式环境产生的数据都需要正常交收结算。</li>
+                    </ul>
+                </div>
             </div>
 
             <!-- 2.1 CreateToken -->
@@ -1881,18 +1924,6 @@ Response:
                     </tbody>
                 </table>
             </div>
-
-            <!-- 2.7 获取投注历史（按日期）已弃用 -->
-            <!-- <div class="content-section" id="betting-history-date">
-                <h2 class="section-title" data-zh="2.7 获取投注历史（按日期）已弃用" data-en="2.7 Get Betting History (by date) deprecated">2.7 获取投注历史（按日期）已弃用</h2>
-                <div class="description" data-zh="此端点已弃用，请使用 2.20 获取投注历史 V2（按日期）" data-en="This endpoint is deprecated, please use 2.20 Get Betting History V2 (by date)">
-                    此端点已弃用，请使用 2.20 获取投注历史 V2（按日期）
-                </div>
-                <div class="api-endpoint">
-                    <span class="api-method">POST</span>
-                    <span class="api-path">/betting/history/by-date</span>
-                </div>
-            </div> -->
 
             <!-- 2.8 获取投注历史（按 ID） -->
             <div class="content-section" id="betting-history-id">
@@ -2933,7 +2964,7 @@ Response:
                         <tr>
                             <td>startDate</td>
                             <td>string</td>
-                            <td data-zh="历史的开始日期时间（UTC+0 时间）。例如 "yyyy-mm-dd" 或 "yyyy-mm-ddThh:mm:ss"" data-en="Start date time of the history. (UTC+0 time) Ex) 'yyyy-mm-dd' or 'yyyy-mm-ddThh:mm:ss'">历史的开始日期时间（UTC+0 时间）。例如 "yyyy-mm-dd" 或 "yyyy-mm-ddThh:mm:ss"</td>
+                            <td data-zh="历史的开始日期时间（UTC+0 时间）。例如 &quot;yyyy-mm-dd&quot; 或 &quot;yyyy-mm-ddThh:mm:ss&quot;" data-en="Start date time of the history. (UTC+0 time) Ex) 'yyyy-mm-dd' or 'yyyy-mm-ddThh:mm:ss'">历史的开始日期时间（UTC+0 时间）。例如 "yyyy-mm-dd" 或 "yyyy-mm-ddThh:mm:ss"</td>
                             <td><span class="status-badge status-required" data-zh="必需" data-en="Required">必需</span></td>
                         </tr>
                         <tr>
@@ -3327,7 +3358,7 @@ Response:
             </div>
 
             <!-- 2.23 获取活跃用户 -->
-            <!-- <div class="content-section" id="active-users">
+            <div class="content-section" id="active-users">
                 <h2 class="section-title" data-zh="2.23 获取活跃用户" data-en="2.23 Get Active Users">2.23 获取活跃用户</h2>
                 <div class="description" data-zh="使用此方法，赌场运营商可以获取当前正在游戏的玩家列表" data-en="Using this method, the casino operator can get a list of players currently playing">
                     使用此方法，赌场运营商可以获取当前正在游戏的玩家列表
@@ -3336,6 +3367,52 @@ Response:
                     <span class="api-method">GET</span>
                     <span class="api-path">/call/active-users</span>
                 </div>
+                <h3 data-zh="请求头" data-en="Request Headers">请求头</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                            <th data-zh="状态" data-en="Status">状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Authorization</td>
+                            <td>string</td>
+                            <td data-zh="Bearer {token}，这里运营商可以使用从 createToken 请求生成的令牌" data-en="Bearer {token}, Here operator can use token generated from createToken request">Bearer {token}，这里运营商可以使用从 createToken 请求生成的令牌</td>
+                            <td><span class="status-badge status-required" data-zh="必需" data-en="Required">必需</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h3 data-zh="响应参数" data-en="Response parameters">响应参数</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>success</td>
+                            <td>boolean</td>
+                            <td data-zh="如果请求成功处理则为 true，否则为 false" data-en="True - if the request was successfully processed or false in other case">如果请求成功处理则为 true，否则为 false</td>
+                        </tr>
+                        <tr>
+                            <td>errorCode</td>
+                            <td>int</td>
+                            <td data-zh="如果请求成功处理则为 0，否则为错误代码" data-en="0 - if the request was successfully processed or error code in other case">如果请求成功处理则为 0，否则为错误代码</td>
+                        </tr>
+                        <tr>
+                            <td>message</td>
+                            <td>List&lt;ActiveUser&gt;</td>
+                            <td data-zh="当前正在游戏的玩家列表" data-en="The list of players currently playing">当前正在游戏的玩家列表</td>
+                        </tr>
+                    </tbody>
+                </table>
                 <h3 data-zh="类型：ActiveUser" data-en="Type: ActiveUser">类型：ActiveUser</h3>
                 <table class="param-table">
                     <thead>
@@ -3346,6 +3423,11 @@ Response:
                         </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td>vendorCode</td>
+                            <td>string</td>
+                            <td data-zh="提供的供应商代码" data-en="Vendor code provided by">提供的供应商代码</td>
+                        </tr>
                         <tr>
                             <td>vendorName</td>
                             <td>string</td>
@@ -3385,6 +3467,7 @@ Response:
     "errorCode": 0,
     "message": [
         {
+            "vendorCode": "slot-pragmatic",
             "vendorName": "Pragmatic",
             "userCode": "dpGeCb",
             "gameCode": "vswaysaztec",
@@ -3394,10 +3477,10 @@ Response:
     ]
 }</code></pre>
                 </div>
-            </div> -->
+            </div>
 
             <!-- 2.24 获取调用列表 -->
-            <!-- <div class="content-section" id="call-list">
+            <div class="content-section" id="call-list">
                 <h2 class="section-title" data-zh="2.24 获取调用列表" data-en="2.24 Get Call List">2.24 获取调用列表</h2>
                 <div class="description" data-zh="使用此方法，赌场运营商可以获取特定游戏的可用调用选项列表。" data-en="Using this method, the casino operator can get a list of available call options of specific game.">
                     使用此方法，赌场运营商可以获取特定游戏的可用调用选项列表。
@@ -3406,6 +3489,25 @@ Response:
                     <span class="api-method">POST</span>
                     <span class="api-path">/call/list</span>
                 </div>
+                <h3 data-zh="请求头" data-en="Request Headers">请求头</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                            <th data-zh="状态" data-en="Status">状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Authorization</td>
+                            <td>string</td>
+                            <td data-zh="Bearer {token}，这里运营商可以使用从 createToken 请求生成的令牌" data-en="Bearer {token}, Here operator can use token generated from createToken request">Bearer {token}，这里运营商可以使用从 createToken 请求生成的令牌</td>
+                            <td><span class="status-badge status-required" data-zh="必需" data-en="Required">必需</span></td>
+                        </tr>
+                    </tbody>
+                </table>
                 <h3 data-zh="请求参数" data-en="Request parameters">请求参数</h3>
                 <table class="param-table">
                     <thead>
@@ -3434,6 +3536,33 @@ Response:
                             <td>String</td>
                             <td data-zh="来自赌场运营商的用户代码" data-en="User Code from Casino operator">来自赌场运营商的用户代码</td>
                             <td><span class="status-badge status-required" data-zh="必需" data-en="Required">必需</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h3 data-zh="响应参数" data-en="Response parameters">响应参数</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>success</td>
+                            <td>boolean</td>
+                            <td data-zh="如果请求成功处理则为 true，否则为 false" data-en="True - if the request was successfully processed or false in other case">如果请求成功处理则为 true，否则为 false</td>
+                        </tr>
+                        <tr>
+                            <td>errorCode</td>
+                            <td>int</td>
+                            <td data-zh="如果请求成功处理则为 0，否则为错误代码" data-en="0 - if the request was successfully processed or error code in other case">如果请求成功处理则为 0，否则为错误代码</td>
+                        </tr>
+                        <tr>
+                            <td>message</td>
+                            <td>List&lt;CallModel&gt;</td>
+                            <td data-zh="调用选项列表" data-en="The list of calls">调用选项列表</td>
                         </tr>
                     </tbody>
                 </table>
@@ -3487,18 +3616,47 @@ Response:
     ]
 }</code></pre>
                 </div>
-            </div> -->
+            </div>
 
             <!-- 2.25 发送调用 -->
-            <!-- <div class="content-section" id="send-call">
+            <div class="content-section" id="send-call">
                 <h2 class="section-title" data-zh="2.25 发送调用" data-en="2.25 Send Call">2.25 发送调用</h2>
                 <div class="description" data-zh="使用此方法，赌场运营商可以向当前活跃用户发送调用。" data-en="Using this method, the casino operator can give call to currently active users.">
                     使用此方法，赌场运营商可以向当前活跃用户发送调用。
+                </div>
+                <div class="amount-notice">
+                    <div class="notice-title" data-zh="特别提醒：" data-en="Important Notice:">特别提醒：</div>
+                    <div data-zh="手动 Call 会产生特殊费用，请留意：后台操作和 API 调用都会产生费用。" data-en="Manual Call incurs special fees — please note that both backend operations and API calls will generate fees.">手动 Call 会产生特殊费用，请留意：后台操作和 API 调用都会产生费用。</div>
+                    <div style="margin-top: 6px;" data-zh="费用示例：" data-en="Fee examples:">费用示例：</div>
+                    <ul>
+                        <li data-zh="玩家下注 10 块，正常派彩 8，那 agent 的输赢报表是 2。" data-en="Player bets 10, normal payout is 8 → agent's win/loss report is 2.">玩家下注 10 块，正常派彩 8，那 agent 的输赢报表是 2。</li>
+                        <li data-zh="玩家下注 10 块，手动 call = 100 块，那 agent 的输赢报表是 10。" data-en="Player bets 10, manual call = 100 → agent's win/loss report is 10.">玩家下注 10 块，手动 call = 100 块，那 agent 的输赢报表是 10。</li>
+                    </ul>
+                    <div data-zh="使用手动 Call 即代表认同以上规则，产生的数据都需要正常交收结算，请您特别留意。" data-en="Using Manual Call means you accept the above rules; all generated data must be settled normally. Please take special note.">使用手动 Call 即代表认同以上规则，产生的数据都需要正常交收结算，请您特别留意。</div>
                 </div>
                 <div class="api-endpoint">
                     <span class="api-method">POST</span>
                     <span class="api-path">/call/send</span>
                 </div>
+                <h3 data-zh="请求头" data-en="Request Headers">请求头</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                            <th data-zh="状态" data-en="Status">状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Authorization</td>
+                            <td>string</td>
+                            <td data-zh="Bearer {token}，这里运营商可以使用从 createToken 请求生成的令牌" data-en="Bearer {token}, Here operator can use token generated from createToken request">Bearer {token}，这里运营商可以使用从 createToken 请求生成的令牌</td>
+                            <td><span class="status-badge status-required" data-zh="必需" data-en="Required">必需</span></td>
+                        </tr>
+                    </tbody>
+                </table>
                 <h3 data-zh="请求参数" data-en="Request parameters">请求参数</h3>
                 <table class="param-table">
                     <thead>
@@ -3542,6 +3700,33 @@ Response:
                         </tr>
                     </tbody>
                 </table>
+                <h3 data-zh="响应参数" data-en="Response parameters">响应参数</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>success</td>
+                            <td>boolean</td>
+                            <td data-zh="如果请求成功处理则为 true，否则为 false" data-en="True - if the request was successfully processed or false in other case">如果请求成功处理则为 true，否则为 false</td>
+                        </tr>
+                        <tr>
+                            <td>errorCode</td>
+                            <td>int</td>
+                            <td data-zh="如果请求成功处理则为 0，否则为错误代码" data-en="0 - if the request was successfully processed or error code in other case">如果请求成功处理则为 0，否则为错误代码</td>
+                        </tr>
+                        <tr>
+                            <td>message</td>
+                            <td>int</td>
+                            <td data-zh="调用 ID（Call Id）" data-en="Call Id">调用 ID（Call Id）</td>
+                        </tr>
+                    </tbody>
+                </table>
                 <div class="code-block">
                     <pre><code>POST /api/v2/call/send HTTP/2
 Host: xxx.com
@@ -3563,10 +3748,10 @@ Response:
     "message": 100
 }</code></pre>
                 </div>
-            </div> -->
+            </div>
 
             <!-- 2.26 取消调用 -->
-            <!-- <div class="content-section" id="cancel-call">
+            <div class="content-section" id="cancel-call">
                 <h2 class="section-title" data-zh="2.26 取消调用" data-en="2.26 Cancel Call">2.26 取消调用</h2>
                 <div class="description" data-zh="使用此方法，赌场运营商可以取消当前活跃用户的待处理调用。" data-en="Using this method, the casino operator can cancel pending call of currently active users.">
                     使用此方法，赌场运营商可以取消当前活跃用户的待处理调用。
@@ -3575,6 +3760,25 @@ Response:
                     <span class="api-method">POST</span>
                     <span class="api-path">/call/cancel</span>
                 </div>
+                <h3 data-zh="请求头" data-en="Request Headers">请求头</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                            <th data-zh="状态" data-en="Status">状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Authorization</td>
+                            <td>string</td>
+                            <td data-zh="Bearer {token}，这里运营商可以使用从 createToken 请求生成的令牌" data-en="Bearer {token}, Here operator can use token generated from createToken request">Bearer {token}，这里运营商可以使用从 createToken 请求生成的令牌</td>
+                            <td><span class="status-badge status-required" data-zh="必需" data-en="Required">必需</span></td>
+                        </tr>
+                    </tbody>
+                </table>
                 <h3 data-zh="请求参数" data-en="Request parameters">请求参数</h3>
                 <table class="param-table">
                     <thead>
@@ -3612,6 +3816,28 @@ Response:
                         </tr>
                     </tbody>
                 </table>
+                <h3 data-zh="响应参数" data-en="Response parameters">响应参数</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>success</td>
+                            <td>boolean</td>
+                            <td data-zh="如果请求成功处理则为 true，否则为 false" data-en="True - if the request was successfully processed or false in other case">如果请求成功处理则为 true，否则为 false</td>
+                        </tr>
+                        <tr>
+                            <td>errorCode</td>
+                            <td>int</td>
+                            <td data-zh="如果请求成功处理则为 0，否则为错误代码" data-en="0 - if the request was successfully processed or error code in other case">如果请求成功处理则为 0，否则为错误代码</td>
+                        </tr>
+                    </tbody>
+                </table>
                 <div class="code-block">
                     <pre><code>POST /api/v2/call/cancel HTTP/2
 Host: xxx.com
@@ -3631,7 +3857,241 @@ Response:
     "errorCode": 0
 }</code></pre>
                 </div>
-            </div> -->
+            </div>
+
+            <!-- 2.27 调用历史 -->
+            <div class="content-section" id="call-histories">
+                <h2 class="section-title" data-zh="2.27 调用历史" data-en="2.27 Call Histories">2.27 调用历史</h2>
+                <div class="description" data-zh="使用此方法，赌场运营商可以获取调用（Call）历史记录。" data-en="Using this method, the casino operator can get call histories.">
+                    使用此方法，赌场运营商可以获取调用（Call）历史记录。
+                </div>
+                <div class="api-endpoint">
+                    <span class="api-method">POST</span>
+                    <span class="api-path">/call/histories</span>
+                </div>
+                <h3 data-zh="请求头" data-en="Request Headers">请求头</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                            <th data-zh="状态" data-en="Status">状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Authorization</td>
+                            <td>string</td>
+                            <td data-zh="Bearer {token}，这里运营商可以使用从 createToken 请求生成的令牌" data-en="Bearer {token}, Here operator can use token generated from createToken request">Bearer {token}，这里运营商可以使用从 createToken 请求生成的令牌</td>
+                            <td><span class="status-badge status-required" data-zh="必需" data-en="Required">必需</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h3 data-zh="请求参数" data-en="Request parameters">请求参数</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>pageIndex</td>
+                            <td>Int</td>
+                            <td data-zh="页码" data-en="Page Index">页码</td>
+                        </tr>
+                        <tr>
+                            <td>pageSize</td>
+                            <td>Int</td>
+                            <td data-zh="每页条数（最大：100）" data-en="Page Size (Max: 100)">每页条数（最大：100）</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h3 data-zh="响应参数" data-en="Response parameters">响应参数</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>success</td>
+                            <td>boolean</td>
+                            <td data-zh="如果请求成功处理则为 true，否则为 false" data-en="True - if the request was successfully processed or false in other case">如果请求成功处理则为 true，否则为 false</td>
+                        </tr>
+                        <tr>
+                            <td>errorCode</td>
+                            <td>int</td>
+                            <td data-zh="如果请求成功处理则为 0，否则为错误代码" data-en="0 - if the request was successfully processed or error code in other case">如果请求成功处理则为 0，否则为错误代码</td>
+                        </tr>
+                        <tr>
+                            <td>message</td>
+                            <td>List&lt;CallHistory&gt;</td>
+                            <td data-zh="调用历史记录列表" data-en="List of CallHistory">调用历史记录列表</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h3 data-zh="类型：CallHistory" data-en="Type: CallHistory">类型：CallHistory</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>id</td>
+                            <td>Int</td>
+                            <td data-zh="调用历史记录的唯一标识符" data-en="Unique identifier of call history">调用历史记录的唯一标识符</td>
+                        </tr>
+                        <tr>
+                            <td>callId</td>
+                            <td>Int</td>
+                            <td data-zh="调用 ID" data-en="Call Id">调用 ID</td>
+                        </tr>
+                        <tr>
+                            <td>userCode</td>
+                            <td>String</td>
+                            <td data-zh="来自赌场运营商的用户代码" data-en="User Code from casino operator">来自赌场运营商的用户代码</td>
+                        </tr>
+                        <tr>
+                            <td>agentCode</td>
+                            <td>String</td>
+                            <td data-zh="赌场运营商的代理代码" data-en="Agent Code for casino operator">赌场运营商的代理代码</td>
+                        </tr>
+                        <tr>
+                            <td>vendorCode</td>
+                            <td>String</td>
+                            <td data-zh="提供的供应商代码" data-en="Vendor Code provided by">提供的供应商代码</td>
+                        </tr>
+                        <tr>
+                            <td>gameCode</td>
+                            <td>String</td>
+                            <td data-zh="提供的棋盘游戏的符号唯一标识符" data-en="Symbolic unique identifier of the board game provided">提供的棋盘游戏的符号唯一标识符</td>
+                        </tr>
+                        <tr>
+                            <td>gameName</td>
+                            <td>String</td>
+                            <td data-zh="提供的游戏名称" data-en="Game name provided">提供的游戏名称</td>
+                        </tr>
+                        <tr>
+                            <td>typeName</td>
+                            <td>String</td>
+                            <td data-zh="调用类型（Free 与 Jackpot）" data-en="Type of Call. (Free & Jackpot)">调用类型（Free 与 Jackpot）</td>
+                        </tr>
+                        <tr>
+                            <td>statusName</td>
+                            <td>String</td>
+                            <td data-zh="调用状态（Reserve 等待、Applied 已应用、Cancelled 已取消）" data-en="Status of Call. (Reserve, Applied, Cancelled)">调用状态（Reserve 等待、Applied 已应用、Cancelled 已取消）</td>
+                        </tr>
+                        <tr>
+                            <td>callAmount</td>
+                            <td>Decimal</td>
+                            <td data-zh="代理本次准备派发的金额" data-en="The amount the agent was going to give">代理本次准备派发的金额</td>
+                        </tr>
+                        <tr>
+                            <td>missedAmount</td>
+                            <td>Decimal</td>
+                            <td data-zh="请求金额中未能处理的部分" data-en="The portion of the requested amount that could not be processed.">请求金额中未能处理的部分</td>
+                        </tr>
+                        <tr>
+                            <td>appliedAmount</td>
+                            <td>Decimal</td>
+                            <td data-zh="实际成功处理并计入玩家余额的金额" data-en="The actual amount successfully processed (approved and applied to the player balance).">实际成功处理并计入玩家余额的金额</td>
+                        </tr>
+                        <tr>
+                            <td>agentBeforeBalance</td>
+                            <td>Decimal</td>
+                            <td data-zh="发起调用前代理的金额" data-en="Agent amount before making a call">发起调用前代理的金额</td>
+                        </tr>
+                        <tr>
+                            <td>agentAfterBalance</td>
+                            <td>Decimal</td>
+                            <td data-zh="调用应用之后代理的金额" data-en="Agent amount after call application">调用应用之后代理的金额</td>
+                        </tr>
+                        <tr>
+                            <td>isAutoCall</td>
+                            <td>Boolean</td>
+                            <td data-zh="若为自动调用则为 TRUE，否则为 FALSE" data-en="If auto call, it is TRUE, or it is FALSE">若为自动调用则为 TRUE，否则为 FALSE</td>
+                        </tr>
+                        <tr>
+                            <td>createdAt</td>
+                            <td>Timestamp</td>
+                            <td data-zh="创建时间戳（秒）" data-en="Timestamp value of Created time (Second)">创建时间戳（秒）</td>
+                        </tr>
+                        <tr>
+                            <td>updatedAt</td>
+                            <td>Timestamp</td>
+                            <td data-zh="更新时间戳（秒）" data-en="Timestamp value of Updated time (Second)">更新时间戳（秒）</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="code-block">
+                    <pre><code>POST /api/v2/call/histories HTTP/2
+Host: xxx.com
+content-type: application/json
+authorization: Bearer eyJhbGciOiJIUzU…..yC9dBS_kwww
+Request Body
+{
+    "pageIndex": 1,
+    "pageSize": 100
+}
+
+Response:
+{
+    "success": true,
+    "errorCode": 0,
+    "message": [
+        {
+            "id": 4181952,
+            "callId": 394423,
+            "userCode": "8GlkHC",
+            "agentCode": "landing",
+            "vendorCode": "slot-pgsoft",
+            "gameCode": "skylight-wonder",
+            "gameName": "Skylight Wonders",
+            "typeName": "Free",
+            "statusName": "Reserve",
+            "callAmount": 600.00,
+            "missedAmount": 0.00,
+            "appliedAmount": 600.00,
+            "agentBeforeBalance": 814838178.39,
+            "agentAfterBalance": 814838178.39,
+            "isAutoCall": true,
+            "createdAt": 1774272908,
+            "updatedAt": 1774272908
+        },
+        {
+            "id": 4181933,
+            "callId": 394413,
+            "userCode": "8GlkHC",
+            "agentCode": "landing",
+            "vendorCode": "slot-pgsoft",
+            "gameCode": "skylight-wonder",
+            "gameName": "Skylight Wonders",
+            "typeName": "Free",
+            "statusName": "Apply",
+            "callAmount": 600.00,
+            "missedAmount": 0.00,
+            "appliedAmount": 600.00,
+            "agentBeforeBalance": 814837646.14,
+            "agentAfterBalance": 814837646.14,
+            "isAutoCall": true,
+            "createdAt": 1774272558,
+            "updatedAt": 1774272705
+        }
+    ]
+}</code></pre>
+                </div>
+            </div>
 
             <!-- III. 无缝钱包 API -->
             <div class="content-section" id="seamless-wallet-api">
@@ -4434,4 +4894,3 @@ Response:
     </script>
 </body>
 </html>
-
