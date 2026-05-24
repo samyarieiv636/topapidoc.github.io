@@ -847,8 +847,8 @@
             <div class="content-section active" id="version-control">
                 <h2 class="section-title" data-zh="版本控制" data-en="Version Control">版本控制</h2>
                 <div class="version-info">
-                    <p data-zh="最新更新：2026年1月" data-en="Latest update: Jan, 2026">最新更新：2026年1月</p>
-                    <p data-zh="API 版本：2.15.5" data-en="API version 2.15.5">API 版本：2.15.5</p>
+                    <p data-zh="最新更新：2026年3月" data-en="Latest update: Mar, 2026">最新更新：2026年3月</p>
+                    <p data-zh="API 版本：2.16" data-en="API version 2.16">API 版本：2.16</p>
                 </div>
                 <table class="version-table">
                     <thead>
@@ -871,6 +871,7 @@
                         <tr><td>09/10/2025</td><td>2.15.4</td><td data-zh="更新交易模型（按 ID 获取交易历史）" data-en="Update Transaction model(Get Transaction History(by Id))">更新交易模型（按 ID 获取交易历史）</td></tr>
                         <tr><td>01/07/2026</td><td>2.15.5</td><td data-zh="更新 - 获取投注历史 V2（按日期），更新 API 速率限制，移除 vendorCode 请求参数" data-en="Update - Get Betting History V2 (by-date), Update API Rate Limit, Remove vendorCode Request parameter">更新 - 获取投注历史 V2（按日期），更新 API 速率限制，移除 vendorCode 请求参数</td></tr>
                         <tr><td>01/13/2026</td><td>2.15.6</td><td data-zh="新功能：添加调用 API" data-en="New Feature: Add Call API">新功能：添加调用 API</td></tr>
+                        <tr><td>03/23/2026</td><td>2.16</td><td data-zh="新功能：添加调用历史 API（2.27 调用历史）。更新：将 CallType 字段改为可选（2.25 发送调用）；CallHistory 模型新增 userBeforeBalance、userAfterBalance 字段；ActiveUser 模型新增 betAmount 字段（2.23 获取活跃用户）；将 historyId 字段类型改为 long（3.2 交易、3.3 批量交易）；将 id 字段类型改为 long（2.20 获取投注历史 V2（按日期）、2.8 获取投注历史（按 ID））" data-en="New Feature: Add Call Histories API (2.27 Call Histories). Update: Change the CallType field to optional (2.25 Send Call); Add userBeforeBalance and userAfterBalance fields to CallHistory model; Add betAmount field to ActiveUser model (2.23 Get Active Users); Change the historyId field type to long (3.2 Transaction, 3.3 Batch Transactions); Change the id field type to long (2.20 Get Betting History V2 (by date), 2.8 Get Betting History (by Id))">新功能：添加调用历史 API（2.27 调用历史）。更新：将 CallType 字段改为可选（2.25 发送调用）；CallHistory 模型新增 userBeforeBalance、userAfterBalance 字段；ActiveUser 模型新增 betAmount 字段（2.23 获取活跃用户）；将 historyId 字段类型改为 long（3.2 交易、3.3 批量交易）；将 id 字段类型改为 long（2.20 获取投注历史 V2（按日期）、2.8 获取投注历史（按 ID））</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -2292,6 +2293,12 @@ Response:
                             <td data-zh="来自赌场运营商的 userCode" data-en="userCode from Casino operator">来自赌场运营商的 userCode</td>
                             <td><span class="status-badge status-required" data-zh="必需" data-en="Required">必需</span></td>
                         </tr>
+                        <tr>
+                            <td>vendorCode</td>
+                            <td>string</td>
+                            <td data-zh="提供的供应商的符号唯一标识符（对于分离钱包，此字段应为必需）" data-en="Symbolic unique identifier of the vendor provided by (For the separated wallet this field should be required)">提供的供应商的符号唯一标识符（对于分离钱包，此字段应为必需）</td>
+                            <td><span class="status-badge status-optional" data-zh="可选" data-en="Optional">可选</span></td>
+                        </tr>
                     </tbody>
                 </table>
                 <div class="code-block">
@@ -3453,6 +3460,11 @@ Response:
                             <td>Int</td>
                             <td data-zh="游戏连接时间" data-en="Game connected time">游戏连接时间</td>
                         </tr>
+                        <tr>
+                            <td>betAmount</td>
+                            <td>Decimal</td>
+                            <td data-zh="投注金额" data-en="Bet amount">投注金额</td>
+                        </tr>
                     </tbody>
                 </table>
                 <div class="code-block">
@@ -3472,7 +3484,8 @@ Response:
             "userCode": "dpGeCb",
             "gameCode": "vswaysaztec",
             "gameName": "AztecGemsMegaways",
-            "connectDateTime": 1768340494
+            "connectDateTime": 1768340494,
+            "betAmount": 100.00
         }
     ]
 }</code></pre>
@@ -3696,7 +3709,7 @@ Response:
                             <td>type</td>
                             <td>Int</td>
                             <td data-zh="调用类型" data-en="Call Type">调用类型</td>
-                            <td><span class="status-badge status-required" data-zh="必需" data-en="Required">必需</span></td>
+                            <td><span class="status-badge status-optional" data-zh="可选" data-en="Optional">可选</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -4008,6 +4021,16 @@ Response:
                             <td data-zh="实际成功处理并计入玩家余额的金额" data-en="The actual amount successfully processed (approved and applied to the player balance).">实际成功处理并计入玩家余额的金额</td>
                         </tr>
                         <tr>
+                            <td>userBeforeBalance</td>
+                            <td>Decimal</td>
+                            <td data-zh="发起调用前玩家的余额" data-en="User amount before making a call">发起调用前玩家的余额</td>
+                        </tr>
+                        <tr>
+                            <td>userAfterBalance</td>
+                            <td>Decimal</td>
+                            <td data-zh="调用应用之后玩家的余额" data-en="User amount after call application">调用应用之后玩家的余额</td>
+                        </tr>
+                        <tr>
                             <td>agentBeforeBalance</td>
                             <td>Decimal</td>
                             <td data-zh="发起调用前代理的金额" data-en="Agent amount before making a call">发起调用前代理的金额</td>
@@ -4063,6 +4086,8 @@ Response:
             "callAmount": 600.00,
             "missedAmount": 0.00,
             "appliedAmount": 600.00,
+            "userBeforeBalance": 1200.00,
+            "userAfterBalance": 1800.00,
             "agentBeforeBalance": 814838178.39,
             "agentAfterBalance": 814838178.39,
             "isAutoCall": true,
@@ -4082,6 +4107,8 @@ Response:
             "callAmount": 600.00,
             "missedAmount": 0.00,
             "appliedAmount": 600.00,
+            "userBeforeBalance": 600.00,
+            "userAfterBalance": 1200.00,
             "agentBeforeBalance": 814837646.14,
             "agentAfterBalance": 814837646.14,
             "isAutoCall": true,
