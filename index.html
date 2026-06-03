@@ -3639,13 +3639,15 @@ Response:
                 </div>
                 <div class="amount-notice">
                     <div class="notice-title" data-zh="特别提醒：" data-en="Important Notice:">特别提醒：</div>
-                    <div data-zh="手动 Call 会产生特殊费用，请留意：后台操作和 API 调用都会产生费用。" data-en="Manual Call incurs special fees — please note that both backend operations and API calls will generate fees.">手动 Call 会产生特殊费用，请留意：后台操作和 API 调用都会产生费用。</div>
-                    <div style="margin-top: 6px;" data-zh="费用示例：" data-en="Fee examples:">费用示例：</div>
+                    <div data-zh="请留意手动 Call 的线路消费（GGR）计算方式，计算公式如下：" data-en="Please note how manual Call affects line consumption (GGR). The calculation formula is as follows:">请留意手动 Call 的线路消费（GGR）计算方式，计算公式如下：</div>
+                    <div style="margin-top: 6px; font-weight: bold;" data-zh="投注金额 － 【盈利金额（系统派彩 ＋ 手动 Call 金额）－ 手动 Call 金额】 ＝ 线路消费金额（GGR）" data-en="Bet amount − [Win amount (system payout + manual Call amount) − manual Call amount] = Line consumption (GGR)">投注金额 － 【盈利金额（系统派彩 ＋ 手动 Call 金额）－ 手动 Call 金额】 ＝ 线路消费金额（GGR）</div>
+                    <div style="margin-top: 6px;" data-zh="示例：" data-en="Examples:">示例：</div>
                     <ul>
-                        <li data-zh="玩家下注 10 块，正常派彩 8，那 agent 的输赢报表是 2。" data-en="Player bets 10, normal payout is 8 → agent's win/loss report is 2.">玩家下注 10 块，正常派彩 8，那 agent 的输赢报表是 2。</li>
-                        <li data-zh="玩家下注 10 块，手动 call = 100 块，那 agent 的输赢报表是 10。" data-en="Player bets 10, manual call = 100 → agent's win/loss report is 10.">玩家下注 10 块，手动 call = 100 块，那 agent 的输赢报表是 10。</li>
+                        <li data-zh="玩家下注 10 块，系统派彩 8 块，无手动 Call，那线路消费（GGR）为 10 － (8 － 0) ＝ 2。" data-en="Player bets 10, system payout is 8, no manual Call → line consumption (GGR) = 10 − (8 − 0) = 2.">玩家下注 10 块，系统派彩 8 块，无手动 Call，那线路消费（GGR）为 10 － (8 － 0) ＝ 2。</li>
+                        <li data-zh="玩家下注 10 块，系统派彩 0，手动 Call = 100 块，那线路消费（GGR）为 10 － (100 － 100) ＝ 10。" data-en="Player bets 10, system payout is 0, manual Call = 100 → line consumption (GGR) = 10 − (100 − 100) = 10.">玩家下注 10 块，系统派彩 0，手动 Call = 100 块，那线路消费（GGR）为 10 － (100 － 100) ＝ 10。</li>
                     </ul>
-                    <div data-zh="使用手动 Call 即代表认同以上规则，产生的数据都需要正常交收结算，请您特别留意。" data-en="Using Manual Call means you accept the above rules; all generated data must be settled normally. Please take special note.">使用手动 Call 即代表认同以上规则，产生的数据都需要正常交收结算，请您特别留意。</div>
+                    <div data-zh="使用手动 Call 即代表认同以上计算规则，产生的数据都需要正常交收结算，请您特别留意。" data-en="Using Manual Call means you accept the above calculation rules; all generated data must be settled normally. Please take special note.">使用手动 Call 即代表认同以上计算规则，产生的数据都需要正常交收结算，请您特别留意。</div>
+                    <div style="margin-top: 6px;" data-zh="免责声明：所产生的 Call 记录默认均视为账号密钥持有方的操作，我方无法鉴别 Call 的具体来源。如对此有异议，请勿使用手动 Call 功能。" data-en="Disclaimer: All generated Call records are by default deemed as operations by the account key holder. We are unable to identify the specific source of a Call. If you have any objection to this, please do not use the manual Call feature.">免责声明：所产生的 Call 记录默认均视为账号密钥持有方的操作，我方无法鉴别 Call 的具体来源。如对此有异议，请勿使用手动 Call 功能。</div>
                 </div>
                 <div class="api-endpoint">
                     <span class="api-method">POST</span>
