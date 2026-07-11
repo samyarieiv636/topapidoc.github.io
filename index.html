@@ -2759,6 +2759,10 @@ Response:
                 <div class="description" data-zh="使用此方法，赌场运营商将设置用户的 RTP。" data-en="Using this method Casino Operator will set user's RTP.">
                     使用此方法，赌场运营商将设置用户的 RTP。
                 </div>
+                <div class="note">
+                    <strong style="color:red;" data-zh="特别提醒：" data-en="Important Notice:">特别提醒：</strong>
+                    <span data-zh="设置 RTP 前，对应玩家（userCode）必须曾经进入过该供应商（vendorCode）的游戏，否则接口会返回 500 错误。" data-en="Before setting the RTP, the player (userCode) must have previously entered a game of this vendor (vendorCode); otherwise the API will return a 500 error.">设置 RTP 前，对应玩家（userCode）必须曾经进入过该供应商（vendorCode）的游戏，否则接口会返回 500 错误。</span>
+                </div>
                 <div class="api-endpoint">
                     <span class="api-method">POST</span>
                     <span class="api-path">/game/user/set-rtp</span>
@@ -3298,6 +3302,10 @@ Response:
                 <h2 class="section-title" data-zh="2.22 设置用户 RTP（批量）" data-en="2.22 Set Users RTP (Bulk)">2.22 设置用户 RTP（批量）</h2>
                 <div class="description" data-zh="使用此方法，赌场运营商批量设置用户的 RTP（最多 500 个用户）。此 API 允许每 3 秒最多 1 个请求。超过此限制可能会导致临时限制或请求被拒绝。" data-en="Using this method, the casino operator sets the RTP for the users in bulk.(max 500 users). This API allows a maximum of one request per 3 seconds. Exceeding this limit may result in temporary throttling or request rejection.">
                     使用此方法，赌场运营商批量设置用户的 RTP（最多 500 个用户）。此 API 允许每 3 秒最多 1 个请求。超过此限制可能会导致临时限制或请求被拒绝。
+                </div>
+                <div class="note">
+                    <strong style="color:red;" data-zh="特别提醒：" data-en="Important Notice:">特别提醒：</strong>
+                    <span data-zh="设置 RTP 前，列表中的每个玩家（userCode）都必须曾经进入过该供应商（vendorCode）的游戏，否则接口会返回 500 错误。" data-en="Before setting the RTP, every player (userCode) in the list must have previously entered a game of this vendor (vendorCode); otherwise the API will return a 500 error.">设置 RTP 前，列表中的每个玩家（userCode）都必须曾经进入过该供应商（vendorCode）的游戏，否则接口会返回 500 错误。</span>
                 </div>
                 <div class="api-endpoint">
                     <span class="api-method">POST</span>
