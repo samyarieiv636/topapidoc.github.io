@@ -95,7 +95,7 @@
             background: var(--card);
             border-right: 1px solid var(--border);
             overflow-y: auto;
-            padding: 20px 0;
+            padding: 0 0 20px;
             position: fixed;
             height: calc(100vh - 60px);
             box-shadow: 2px 0 4px rgba(0, 0, 0, 0.05);
@@ -178,6 +178,139 @@
         .tree-item.level-2,
         .tree-item.level-3 {
             display: block;
+        }
+
+        /* 文档搜索 */
+        .sidebar-search {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: var(--card);
+            padding: 14px 16px 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .doc-search-box {
+            position: relative;
+        }
+
+        .doc-search-input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 8px 30px 8px 32px;
+            font-size: 13px;
+            color: var(--text);
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .doc-search-input:focus {
+            border-color: var(--accent2);
+            box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.15);
+        }
+
+        .doc-search-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 13px;
+            color: var(--muted);
+            pointer-events: none;
+        }
+
+        .doc-search-clear {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            line-height: 16px;
+            text-align: center;
+            border-radius: 50%;
+            font-size: 14px;
+            color: var(--muted);
+            cursor: pointer;
+            display: none;
+            user-select: none;
+        }
+
+        .doc-search-clear:hover {
+            background: #e0e0e0;
+            color: var(--text);
+        }
+
+        .doc-search-results {
+            display: none;
+            position: absolute;
+            left: 8px;
+            right: 8px;
+            top: calc(100% + 4px);
+            max-height: 60vh;
+            overflow-y: auto;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+            z-index: 30;
+        }
+
+        .doc-search-results.show {
+            display: block;
+        }
+
+        .doc-search-result {
+            padding: 8px 12px;
+            cursor: pointer;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .doc-search-result:last-child {
+            border-bottom: none;
+        }
+
+        .doc-search-result:hover,
+        .doc-search-result.active {
+            background: #e8f4f8;
+        }
+
+        .dsr-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.4;
+        }
+
+        .dsr-group {
+            font-size: 11px;
+            color: var(--accent);
+            margin-top: 2px;
+        }
+
+        .dsr-snippet {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 3px;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        .doc-search-result mark {
+            background: #fff2a8;
+            color: inherit;
+            padding: 0 1px;
+            border-radius: 2px;
+        }
+
+        .doc-search-empty {
+            padding: 14px 12px;
+            font-size: 12px;
+            color: var(--muted);
+            text-align: center;
         }
 
         /* 右侧内容区 */
@@ -669,6 +802,15 @@
     <div class="main-container">
         <!-- 左侧目录树 -->
         <div class="sidebar" id="sidebar">
+            <div class="sidebar-search">
+                <div class="doc-search-box">
+                    <span class="doc-search-icon">🔍</span>
+                    <input type="text" id="docSearchInput" class="doc-search-input" autocomplete="off"
+                           data-zh-ph="搜索文档…" data-en-ph="Search docs…" placeholder="搜索文档…">
+                    <span class="doc-search-clear" id="docSearchClear">×</span>
+                    <div class="doc-search-results" id="docSearchResults"></div>
+                </div>
+            </div>
             <div class="tree-item level-1 expanded has-children" data-section="version-control">
                 <span class="tree-toggle"></span>
                 <span data-zh="版本控制" data-en="Version Control">版本控制</span>
@@ -5074,6 +5216,12 @@ Response:
             document.querySelectorAll('[data-zh][data-en]').forEach(el => {
                 el.textContent = isEn ? el.getAttribute('data-en') : el.getAttribute('data-zh');
             });
+            // 占位符（如搜索框）双语
+            document.querySelectorAll('[data-zh-ph][data-en-ph]').forEach(el => {
+                el.placeholder = isEn ? el.getAttribute('data-en-ph') : el.getAttribute('data-zh-ph');
+            });
+            // 语言切换后刷新已打开的搜索结果
+            if (typeof window.refreshDocSearch === 'function') window.refreshDocSearch();
         }
 
         // 目录树点击事件
@@ -5167,6 +5315,233 @@ Response:
                 }
             });
         });
+
+        /* ============ 文档全局搜索 ============ */
+        (function () {
+            const input = document.getElementById('docSearchInput');
+            const resultsEl = document.getElementById('docSearchResults');
+            const clearEl = document.getElementById('docSearchClear');
+            const searchWrap = document.querySelector('.sidebar-search');
+            let searchIndex = [];
+            let activeIndex = 0;
+            let lastQuery = '';
+
+            function getLevel(el) {
+                const m = el.className.match(/level-(\d+)/);
+                return m ? parseInt(m[1]) : 0;
+            }
+
+            // 找到某个目录项所属的父级分组（沿兄弟节点向前找更小 level 的 has-children 项）
+            function findParentGroup(item) {
+                const level = getLevel(item);
+                if (level <= 1) return null;
+                const siblings = Array.from(item.parentElement.children);
+                const idx = siblings.indexOf(item);
+                for (let i = idx - 1; i >= 0; i--) {
+                    const s = siblings[i];
+                    if (getLevel(s) < level && s.classList.contains('has-children')) return s;
+                }
+                return null;
+            }
+
+            function labelOf(el) {
+                const span = el.querySelector('span[data-zh][data-en]');
+                if (span) return { zh: span.getAttribute('data-zh') || '', en: span.getAttribute('data-en') || '' };
+                const t = (el.textContent || '').trim();
+                return { zh: t, en: t };
+            }
+
+            // 建立搜索索引：每个有对应内容面板的目录项一条，正文取中英双语文本
+            function buildIndex() {
+                searchIndex = [];
+                document.querySelectorAll('.tree-item[data-section]').forEach(item => {
+                    const id = item.getAttribute('data-section');
+                    const contentEl = document.getElementById(id);
+                    if (!contentEl) return;
+                    const label = labelOf(item);
+                    const groupItem = findParentGroup(item);
+                    const group = groupItem ? labelOf(groupItem) : { zh: '', en: '' };
+                    const parts = [label.zh, label.en];
+                    contentEl.querySelectorAll('[data-zh][data-en]').forEach(e => {
+                        parts.push(e.getAttribute('data-zh'));
+                        parts.push(e.getAttribute('data-en'));
+                    });
+                    parts.push(contentEl.textContent || '');
+                    searchIndex.push({
+                        id: id,
+                        labelZh: label.zh, labelEn: label.en,
+                        groupZh: group.zh, groupEn: group.en,
+                        contentEl: contentEl,
+                        haystack: parts.join(' \n ').toLowerCase()
+                    });
+                });
+            }
+
+            function isSubsequence(q, text) {
+                let i = 0;
+                for (let c = 0; c < text.length && i < q.length; c++) {
+                    if (text[c] === q[i]) i++;
+                }
+                return i === q.length;
+            }
+
+            // 模糊匹配 + 打分：标题命中优先于正文命中
+            function runSearch(q) {
+                const out = [];
+                for (const e of searchIndex) {
+                    const labelBoth = (e.labelZh + ' ' + e.labelEn).toLowerCase();
+                    let score = -1;
+                    if (labelBoth.startsWith(q)) score = 100;
+                    else if (labelBoth.indexOf(q) !== -1) score = 80;
+                    else if (e.haystack.indexOf(q) !== -1) score = 50;
+                    else if (isSubsequence(q, labelBoth)) score = 25;
+                    if (score >= 0) out.push({ e: e, score: score });
+                }
+                out.sort((a, b) => b.score - a.score);
+                return out.slice(0, 30);
+            }
+
+            function escapeHtml(s) {
+                return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+            }
+
+            function highlight(text, q) {
+                if (!q) return escapeHtml(text);
+                const lc = text.toLowerCase();
+                let res = '', i = 0, pos;
+                while ((pos = lc.indexOf(q, i)) !== -1) {
+                    res += escapeHtml(text.slice(i, pos)) + '<mark>' + escapeHtml(text.slice(pos, pos + q.length)) + '</mark>';
+                    i = pos + q.length;
+                }
+                res += escapeHtml(text.slice(i));
+                return res;
+            }
+
+            // 从正文里截取包含关键词的片段
+            function makeSnippet(entry, q) {
+                const text = (entry.contentEl.textContent || '').replace(/\s+/g, ' ').trim();
+                const pos = text.toLowerCase().indexOf(q);
+                if (pos === -1) return '';
+                const start = Math.max(0, pos - 24);
+                const end = Math.min(text.length, pos + q.length + 40);
+                return (start > 0 ? '…' : '') + text.slice(start, end) + (end < text.length ? '…' : '');
+            }
+
+            function render(rawQ) {
+                const q = (rawQ || '').trim().toLowerCase();
+                lastQuery = rawQ || '';
+                clearEl.style.display = (rawQ && rawQ.length) ? 'block' : 'none';
+                if (!q) { resultsEl.classList.remove('show'); resultsEl.innerHTML = ''; return; }
+                const results = runSearch(q);
+                const isEn = currentLang === 'en';
+                if (!results.length) {
+                    resultsEl.innerHTML = '<div class="doc-search-empty">' + (isEn ? 'No results found' : '无匹配结果') + '</div>';
+                    resultsEl.classList.add('show');
+                    return;
+                }
+                activeIndex = 0;
+                resultsEl.innerHTML = results.map((r, idx) => {
+                    const e = r.e;
+                    const title = isEn ? e.labelEn : e.labelZh;
+                    const group = isEn ? e.groupEn : e.groupZh;
+                    const snip = makeSnippet(e, q);
+                    return '<div class="doc-search-result' + (idx === 0 ? ' active' : '') + '" data-id="' + escapeHtml(e.id) + '">'
+                        + '<div class="dsr-title">' + highlight(title, q) + '</div>'
+                        + (group ? '<div class="dsr-group">' + escapeHtml(group) + '</div>' : '')
+                        + (snip ? '<div class="dsr-snippet">' + highlight(snip, q) + '</div>' : '')
+                        + '</div>';
+                }).join('');
+                resultsEl.classList.add('show');
+            }
+
+            function closeResults() { resultsEl.classList.remove('show'); }
+
+            // 确保目标目录项可见：展开其父级分组
+            function ensureVisible(item) {
+                const g = findParentGroup(item);
+                if (!g) return;
+                g.classList.remove('collapsed');
+                g.classList.add('expanded');
+                const siblings = Array.from(g.parentElement.children);
+                const gi = siblings.indexOf(g);
+                const gl = getLevel(g);
+                for (let i = gi + 1; i < siblings.length; i++) {
+                    if (getLevel(siblings[i]) > gl) siblings[i].style.display = 'block';
+                    else break;
+                }
+            }
+
+            // 跳转到某个内容面板并高亮对应目录项
+            function navigateTo(id) {
+                const contentEl = document.getElementById(id);
+                if (!contentEl) return;
+                document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+                contentEl.classList.add('active');
+                contentEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                let target = null;
+                document.querySelectorAll('.tree-item').forEach(i => {
+                    i.classList.remove('active');
+                    if (i.getAttribute('data-section') === id) target = i;
+                });
+                if (target) {
+                    target.classList.add('active');
+                    ensureVisible(target);
+                    target.scrollIntoView({ block: 'nearest' });
+                }
+            }
+
+            function syncActive(items) {
+                items.forEach((it, i) => it.classList.toggle('active', i === activeIndex));
+                if (items[activeIndex]) items[activeIndex].scrollIntoView({ block: 'nearest' });
+            }
+
+            // 事件绑定
+            input.addEventListener('input', () => render(input.value));
+            input.addEventListener('focus', () => { if (input.value.trim()) render(input.value); });
+            input.addEventListener('keydown', e => {
+                const items = resultsEl.querySelectorAll('.doc-search-result');
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    if (items.length) { activeIndex = (activeIndex + 1) % items.length; syncActive(items); }
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    if (items.length) { activeIndex = (activeIndex - 1 + items.length) % items.length; syncActive(items); }
+                } else if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const el = items[activeIndex];
+                    if (el) { navigateTo(el.getAttribute('data-id')); closeResults(); }
+                } else if (e.key === 'Escape') {
+                    closeResults(); input.blur();
+                }
+            });
+            resultsEl.addEventListener('click', e => {
+                const el = e.target.closest('.doc-search-result');
+                if (!el) return;
+                navigateTo(el.getAttribute('data-id'));
+                closeResults();
+            });
+            clearEl.addEventListener('click', () => { input.value = ''; render(''); input.focus(); });
+            document.addEventListener('click', e => { if (!searchWrap.contains(e.target)) closeResults(); });
+            // 按 "/" 快速聚焦搜索框
+            document.addEventListener('keydown', e => {
+                const tag = (document.activeElement && document.activeElement.tagName) || '';
+                if (e.key === '/' && document.activeElement !== input && !/^(INPUT|TEXTAREA)$/.test(tag)) {
+                    e.preventDefault();
+                    input.focus();
+                }
+            });
+
+            // 供语言切换后刷新结果
+            window.refreshDocSearch = function () {
+                if (lastQuery && lastQuery.trim() && resultsEl.classList.contains('show')) render(lastQuery);
+            };
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', buildIndex);
+            } else {
+                buildIndex();
+            }
+        })();
     </script>
 </body>
 </html>
