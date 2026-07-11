@@ -776,7 +776,7 @@
             </div>
             <div class="tree-item level-2" data-section="betting-history-v2">
                 <span class="tree-toggle"></span>
-                <span data-zh="2.20 获取投注历史 V2（按日期）" data-en="2.20 Get Betting History V2 (by date)">2.20 获取投注历史 V2（按日期）</span>
+                <span data-zh="2.20 获取投注历史 V2（按日期）（即将弃用）" data-en="2.20 Get Betting History V2 (by date) (To be deprecated)">2.20 获取投注历史 V2（按日期）（即将弃用）</span>
             </div>
             <div class="tree-item level-2" data-section="betting-detail-url">
                 <span class="tree-toggle"></span>
@@ -805,6 +805,10 @@
             <div class="tree-item level-2" data-section="call-histories">
                 <span class="tree-toggle"></span>
                 <span data-zh="2.27 调用历史" data-en="2.27 Call Histories">2.27 调用历史</span>
+            </div>
+            <div class="tree-item level-2" data-section="betting-history-v3">
+                <span class="tree-toggle"></span>
+                <span data-zh="2.28 获取投注历史 V3（按日期）" data-en="2.28 Get Betting History V3 (by date)">2.28 获取投注历史 V3（按日期）</span>
             </div>
 
             <div class="tree-item level-1 expanded has-children" data-section="seamless-wallet-api">
@@ -872,6 +876,7 @@
                         <tr><td>01/07/2026</td><td>2.15.5</td><td data-zh="更新 - 获取投注历史 V2（按日期），更新 API 速率限制，移除 vendorCode 请求参数" data-en="Update - Get Betting History V2 (by-date), Update API Rate Limit, Remove vendorCode Request parameter">更新 - 获取投注历史 V2（按日期），更新 API 速率限制，移除 vendorCode 请求参数</td></tr>
                         <tr><td>01/13/2026</td><td>2.15.6</td><td data-zh="新功能：添加调用 API" data-en="New Feature: Add Call API">新功能：添加调用 API</td></tr>
                         <tr><td>03/23/2026</td><td>2.16</td><td data-zh="新功能：添加调用历史 API（2.27 调用历史）。更新：将 CallType 字段改为可选（2.25 发送调用）；CallHistory 模型新增 userBeforeBalance、userAfterBalance 字段；ActiveUser 模型新增 betAmount 字段（2.23 获取活跃用户）；将 historyId 字段类型改为 long（3.2 交易、3.3 批量交易）；将 id 字段类型改为 long（2.20 获取投注历史 V2（按日期）、2.8 获取投注历史（按 ID））" data-en="New Feature: Add Call Histories API (2.27 Call Histories). Update: Change the CallType field to optional (2.25 Send Call); Add userBeforeBalance and userAfterBalance fields to CallHistory model; Add betAmount field to ActiveUser model (2.23 Get Active Users); Change the historyId field type to long (3.2 Transaction, 3.3 Batch Transactions); Change the id field type to long (2.20 Get Betting History V2 (by date), 2.8 Get Betting History (by Id))">新功能：添加调用历史 API（2.27 调用历史）。更新：将 CallType 字段改为可选（2.25 发送调用）；CallHistory 模型新增 userBeforeBalance、userAfterBalance 字段；ActiveUser 模型新增 betAmount 字段（2.23 获取活跃用户）；将 historyId 字段类型改为 long（3.2 交易、3.3 批量交易）；将 id 字段类型改为 long（2.20 获取投注历史 V2（按日期）、2.8 获取投注历史（按 ID））</td></tr>
+                        <tr><td>07/11/2026</td><td>2.17</td><td data-zh="新功能：添加 2.28 获取投注历史 V3（按日期），为日期时间字段增加毫秒精度（startDate、nextStartDate 支持 yyyy-mm-ddThh:mm:ss.SSS；createdAt、updatedAt 为 13 位毫秒级时间戳）。弃用：2.20 获取投注历史 V2（按日期），计划于 2026-07-18 停止服务，请迁移至 V3" data-en="New Feature: Add 2.28 Get Betting History V3 (by date), adding millisecond precision to datetime fields (startDate and nextStartDate support yyyy-mm-ddThh:mm:ss.SSS; createdAt and updatedAt are 13-digit millisecond timestamps). Deprecated: 2.20 Get Betting History V2 (by date), scheduled to be turned off on 2026-07-18, please migrate to V3.">新功能：添加 2.28 获取投注历史 V3（按日期），为日期时间字段增加毫秒精度（startDate、nextStartDate 支持 yyyy-mm-ddThh:mm:ss.SSS；createdAt、updatedAt 为 13 位毫秒级时间戳）。弃用：2.20 获取投注历史 V2（按日期），计划于 2026-07-18 停止服务，请迁移至 V3</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -2922,6 +2927,10 @@ Response:
             <!-- 2.20 获取投注历史 V2 -->
             <div class="content-section" id="betting-history-v2">
                 <h2 class="section-title" data-zh="2.20 获取投注历史 V2（按日期）" data-en="2.20 Get Betting History V2 (by date)">2.20 获取投注历史 V2（按日期）</h2>
+                <div class="amount-notice">
+                    <div class="notice-title"><span data-zh="⚠️ 弃用提示" data-en="⚠️ Deprecation Notice">⚠️ 弃用提示</span></div>
+                    <div><span data-zh="本接口（V2）已标记为弃用，建议尽快迁移到「2.28 获取投注历史 V3（按日期）」。V3 为日期时间字段增加了毫秒精度（.SSS）。V2 计划于 2026-07-18 停止服务，请在此之前完成迁移；在此之前 V2 仍可正常使用。" data-en="This endpoint (V2) is deprecated. Please migrate to '2.28 Get Betting History V3 (by date)' as soon as possible. V3 adds millisecond precision (.SSS) to datetime fields. V2 is scheduled to be turned off on 2026-07-18; please complete your migration before then. V2 remains fully functional until that date.">本接口（V2）已标记为弃用，建议尽快迁移到「2.28 获取投注历史 V3（按日期）」。V3 为日期时间字段增加了毫秒精度（.SSS）。V2 计划于 2026-07-18 停止服务，请在此之前完成迁移；在此之前 V2 仍可正常使用。</span></div>
+                </div>
                 <div class="description" data-zh="使用此方法，赌场运营商将按日期获取投注历史列表（最多 2000 条记录）。可以获取最多 7 天前的历史记录。此 API 允许每 10 秒最多 2 个请求。超过此限制可能会导致临时限制或请求被拒绝。" data-en="Using this method Casino Operator will get the list of betting history by date(max 2000 records). It is possible to get histories up to 7 days ago. This API allows a maximum of 20 requests per 60 seconds. Exceeding this limit may result in temporary throttling or request rejection.">
                     使用此方法，赌场运营商将按日期获取投注历史列表（最多 2000 条记录）。可以获取最多 7 天前的历史记录。此 API 允许每 10 秒最多 2 个请求。超过此限制可能会导致临时限制或请求被拒绝。
                 </div>
@@ -4120,6 +4129,232 @@ Response:
     ]
 }</code></pre>
                 </div>
+            </div>
+
+            <!-- 2.28 获取投注历史 V3 -->
+            <div class="content-section" id="betting-history-v3">
+                <h2 class="section-title" data-zh="2.28 获取投注历史 V3（按日期）" data-en="2.28 Get Betting History V3 (by date)">2.28 获取投注历史 V3（按日期）</h2>
+                <div class="description" data-zh="使用此方法，赌场运营商将按日期获取投注历史列表（最多 2000 条记录）。可以获取最多 7 天前的历史记录。此 API 允许每 60 秒最多 20 个请求。超过此限制可能会导致临时限制或请求被拒绝。" data-en="Using this method Casino Operator will get the list of betting history by date(max 2000 records). It is possible to get histories up to 7 days ago. This API allows a maximum of 20 requests per 60 seconds. Exceeding this limit may result in temporary throttling or request rejection.">
+                    使用此方法，赌场运营商将按日期获取投注历史列表（最多 2000 条记录）。可以获取最多 7 天前的历史记录。此 API 允许每 60 秒最多 20 个请求。超过此限制可能会导致临时限制或请求被拒绝。
+                </div>
+
+                <div class="note">
+                    <strong data-zh="V3 相比 V2 的变化" data-en="What's changed compared to V2">V3 相比 V2 的变化</strong><br>
+                    <span data-zh="V3 为以下日期时间字段增加了毫秒精度（.SSS）：请求参数 " data-en="V3 adds millisecond precision (.SSS) to the following datetime fields: request parameter ">V3 为以下日期时间字段增加了毫秒精度（.SSS）：请求参数 </span><code>startDate</code>
+                    <span data-zh="；响应字段 " data-en="; response fields ">；响应字段 </span><code>nextStartDate</code>、<code>createdAt</code>、<code>updatedAt</code>
+                    <span data-zh="。其余字段与 V2 保持一致。推荐新接入及从 V2 迁移的运营商使用本接口。" data-en=". All other fields remain the same as V2. New integrations and operators migrating from V2 are recommended to use this endpoint.">。其余字段与 V2 保持一致。推荐新接入及从 V2 迁移的运营商使用本接口。</span>
+                </div>
+
+                <div class="note">
+                    <strong data-zh="调用流程说明（基于 startDate、updateTime 与 nextStartDate）" data-en="Call flow description (based on startDate, updateTime and nextStartDate)">调用流程说明（基于 startDate、updateTime 与 nextStartDate）</strong><br><br>
+                    <strong data-zh="一、首次调用" data-en="1. First call">一、首次调用</strong><br>
+                    <span data-zh="请将对应数据的 " data-en="Please pass the ">请将对应数据的 </span><code>updateTime</code>
+                    <span data-zh=" 作为 " data-en=" as "> 作为 </span><code>startDate</code>，
+                    <span data-zh="并确保传入的时区为 " data-en="and make sure the timezone is ">并确保传入的时区为 </span>
+                    <span style="color:red;" data-zh="UTC+0（特别注意！）" data-en="UTC+0 (very important!)">UTC+0（特别注意！）</span>。<br><br>
+
+                    <strong data-zh="二、保存 nextStartDate" data-en="2. Save nextStartDate">二、保存 nextStartDate</strong><br>
+                    <span data-zh="接口返回的 " data-en="Save the ">接口返回的 </span><code>nextStartDate</code>
+                    <span data-zh=" 请务必保存下来，作为下次请求时传入的时间参数。" data-en=" returned by the API and use it as the time parameter for the next request."> 请务必保存下来，作为下次请求时传入的时间参数。</span><br><br>
+
+                    <strong data-zh="三、根据返回数据决定是否继续请求" data-en="3. Decide whether to continue based on response data">三、根据返回数据决定是否继续请求</strong><br>
+                    <span data-zh="1）如果本次返回有数据，且数量等于 " data-en="(1) If this response contains data and the number of records is equal to ">1）如果本次返回有数据，且数量等于 </span><code>limit</code>
+                    <span data-zh=" 参数的值，可以继续使用返回的 " data-en=" parameter, you may continue requesting using the returned "> 参数的值，可以继续使用返回的 </span><code>nextStartDate</code>
+                    <span data-zh=" 发起下一次请求（建议做适当的请求频率控制，例如每 " data-en=" to make the next request (it is recommended to throttle the frequency appropriately, for example one request every "> 发起下一次请求（建议做适当的请求频率控制，例如每 </span><span style="color:red;" data-zh="5 秒" data-en="5 seconds">5 秒</span><span data-zh=" 一次）。" data-en=")."> 一次）。</span><br>
+                    <span data-zh="2）如果本次返回有数据，但数量小于 " data-en="(2) If this response contains data but the number of records is less than ">2）如果本次返回有数据，但数量小于 </span><code>limit</code>
+                    <span data-zh=" 参数的值，请停止继续请求。" data-en=" parameter, please stop making further requests."> 参数的值，请停止继续请求。</span><br>
+                    <span data-zh="3）如果本次没有任何数据，请停止请求，此时返回的 " data-en="(3) If there is no data in this response, stop requesting. In this case, the returned ">3）如果本次没有任何数据，请停止请求，此时返回的 </span><code>nextStartDate</code>
+                    <span data-zh=" 为当前时间减 5 分钟。" data-en=" is current time minus 5 minutes."> 为当前时间减 5 分钟。</span><br><br>
+
+                    <strong data-zh="四、时间传入超过当前时间的处理" data-en="4. When the input time is later than current time">四、时间传入超过当前时间的处理</strong><br>
+                    <span data-zh="当传入的时间晚于当前系统时间时，接口会返回的 " data-en="If the time you pass in is later than the current system time, the API will return ">当传入的时间晚于当前系统时间时，接口会返回的 </span><code>nextStartDate</code>
+                    <span data-zh=" 等于本次传入的当前时间。" data-en=" with a value equal to the time you passed in."> 等于本次传入的当前时间。</span>
+                    <span style="color:red;" data-zh="请特别留意，请勿传错对应的时间。" data-en="Please pay special attention and do NOT send the wrong time.">请特别留意，请勿传错对应的时间。</span>
+                </div>
+
+                <div class="api-endpoint">
+                    <span class="api-method">POST</span>
+                    <span class="api-path">/betting/history/by-date-v3</span>
+                </div>
+                <h3 data-zh="请求参数" data-en="Request parameters">请求参数</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                            <th data-zh="状态" data-en="Status">状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>startDate</td>
+                            <td>string</td>
+                            <td data-zh="历史的开始日期时间（UTC+0 时间）。格式为 &quot;yyyy-mm-ddThh:mm:ss.SSS&quot;（精确到毫秒）。例如 &quot;2024-04-21T01:00:00.222&quot;" data-en="Start date time of the history. (UTC+0 time) Format 'yyyy-mm-ddThh:mm:ss.SSS' (with milliseconds). Ex) '2024-04-21T01:00:00.222'">历史的开始日期时间（UTC+0 时间）。格式为 "yyyy-mm-ddThh:mm:ss.SSS"（精确到毫秒）。例如 "2024-04-21T01:00:00.222"</td>
+                            <td><span class="status-badge status-required" data-zh="必需" data-en="Required">必需</span></td>
+                        </tr>
+                        <tr>
+                            <td>limit</td>
+                            <td>int</td>
+                            <td data-zh="历史记录数（最多 2000）" data-en="History count (max 2000)">历史记录数（最多 2000）</td>
+                            <td><span class="status-badge status-required" data-zh="必需" data-en="Required">必需</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="code-block">
+                    <pre><code>POST /api/v2/betting/history/by-date-v3 HTTP/2
+Host: xxx.com
+content-type: application/json
+authorization: Bearer eyJhbGciOiJIUzU…..yC9dBS_kwww
+Request Body
+{
+    "startDate": "2024-04-21T01:00:00.222",
+    "limit": 5000
+}
+
+Response:
+{
+    "success": true,
+    "errorCode": 0,
+    "message": {
+        "limit": 5000,
+        "nextStartDate": "2024-04-21T10:14:27.222",
+        "histories": [
+            {
+                "id": 4,
+                "userCode": "testuser",
+                "roundId": "1713765639102",
+                "gameCode": "vswaysmorient",
+                "vendorCode": "mini-crash",
+                "betAmount": 100.00,
+                "winAmount": 76.00,
+                "beforeBalance": 1000000.00,
+                "afterBalance": 999976.00,
+                "detail": "",
+                "status": 1,
+                "createdAt": 1713736839234,
+                "updatedAt": 1713736839333
+            }
+        ]
+    }
+                }</code></pre>
+                </div>
+
+                <h3 data-zh="响应字段说明" data-en="Response field description">响应字段说明</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>success</td>
+                            <td>boolean</td>
+                            <td data-zh="请求是否成功处理：true 表示成功，false 表示失败" data-en="Whether the request was processed successfully: true means success, false means failure">请求是否成功处理：true 表示成功，false 表示失败</td>
+                        </tr>
+                        <tr>
+                            <td>errorCode</td>
+                            <td>int</td>
+                            <td data-zh="错误码：0 表示成功，非 0 表示对应错误代码" data-en="Error code: 0 means success, non-zero means specific error code">错误码：0 表示成功，非 0 表示对应错误代码</td>
+                        </tr>
+                        <tr>
+                            <td>message.limit</td>
+                            <td>int</td>
+                            <td data-zh="本次查询的最大记录数（与请求中的 limit 对应）" data-en="Maximum number of records for this query (corresponding to the limit in the request)">本次查询的最大记录数（与请求中的 limit 对应）</td>
+                        </tr>
+                        <tr>
+                            <td>message.nextStartDate</td>
+                            <td>string(UTC+0)</td>
+                            <td data-zh="下一次查询时应传入的 startDate（UTC+0 时间，格式为 yyyy-mm-ddThh:mm:ss.SSS，含毫秒），请根据上方调用流程说明正确使用" data-en="The startDate (UTC+0 time, format yyyy-mm-ddThh:mm:ss.SSS with milliseconds) that should be used for the next query; please follow the call flow description above to use it correctly">下一次查询时应传入的 startDate（UTC+0 时间，格式为 yyyy-mm-ddThh:mm:ss.SSS，含毫秒），请根据上方调用流程说明正确使用</td>
+                        </tr>
+                        <tr>
+                            <td>message.histories</td>
+                            <td>array&lt;HistoryItem&gt;</td>
+                            <td data-zh="投注历史列表，每一项为一条投注记录，字段说明见下表" data-en="List of betting histories; each item is one betting record, see the table below for field details">投注历史列表，每一项为一条投注记录，字段说明见下表</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 data-zh="message.histories 单条记录字段说明" data-en="Fields of one item in message.histories">message.histories 单条记录字段说明</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th data-zh="名称" data-en="Name">名称</th>
+                            <th data-zh="类型" data-en="Type">类型</th>
+                            <th data-zh="描述" data-en="Description">描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>id</td>
+                            <td>long</td>
+                            <td data-zh="投注历史主键 ID" data-en="Primary ID of the betting history record">投注历史主键 ID</td>
+                        </tr>
+                        <tr>
+                            <td>userCode</td>
+                            <td>string</td>
+                            <td data-zh="来自赌场运营商的用户唯一标识" data-en="User unique identifier from the Casino operator">来自赌场运营商的用户唯一标识</td>
+                        </tr>
+                        <tr>
+                            <td>roundId</td>
+                            <td>string</td>
+                            <td data-zh="游戏回合标识，同一玩家唯一标识一个游戏回合" data-en="Game round identifier, uniquely identifies a game round for the same player">游戏回合标识，同一玩家唯一标识一个游戏回合</td>
+                        </tr>
+                        <tr>
+                            <td>gameCode</td>
+                            <td>string</td>
+                            <td data-zh="游戏编码，唯一标识某一个游戏" data-en="Game code, uniquely identifies a specific game">游戏编码，唯一标识某一个游戏</td>
+                        </tr>
+                        <tr>
+                            <td>vendorCode</td>
+                            <td>string</td>
+                            <td data-zh="供应商编码，唯一标识提供该游戏的供应商" data-en="Vendor code, uniquely identifies the provider of the game">供应商编码，唯一标识提供该游戏的供应商</td>
+                        </tr>
+                        <tr>
+                            <td>betAmount</td>
+                            <td>decimal</td>
+                            <td data-zh="本次投注金额" data-en="Bet amount of this betting record">本次投注金额</td>
+                        </tr>
+                        <tr>
+                            <td>winAmount</td>
+                            <td>decimal</td>
+                            <td data-zh="本次获奖（派彩金额），如果未中奖则为 0" data-en="Win (payout) amount of this betting record; 0 if no win">本次获奖（派彩金额），如果未中奖则为 0</td>
+                        </tr>
+                        <tr>
+                            <td>beforeBalance</td>
+                            <td>decimal</td>
+                            <td data-zh="该投注结算前的用户余额" data-en="User balance before this bet was settled">该投注结算前的用户余额</td>
+                        </tr>
+                        <tr>
+                            <td>afterBalance</td>
+                            <td>decimal</td>
+                            <td data-zh="该投注结算后的用户余额" data-en="User balance after this bet was settled">该投注结算后的用户余额</td>
+                        </tr>
+                        <tr>
+                            <td>detail</td>
+                            <td>string</td>
+                            <td data-zh="投注详情或附加说明（如有）" data-en="Bet detail or additional description, if any">投注详情或附加说明（如有）</td>
+                        </tr>
+                        <tr>
+                            <td>status</td>
+                            <td>int</td>
+                            <td data-zh="投注状态： 0 未结算，1 已结算，2 取消" data-en="Bet status: 0: Unfinished, 1: Finished, 2: Canceled">投注状态： 0 未结算，1 已结算，2 取消</td>
+                        </tr>
+                        <tr>
+                            <td>createdAt</td>
+                            <td>long</td>
+                            <td data-zh="记录创建时间（13 位毫秒级时间戳）" data-en="Record creation time (13-digit millisecond timestamp)">记录创建时间（13 位毫秒级时间戳）</td>
+                        </tr>
+                        <tr>
+                            <td>updatedAt</td>
+                            <td>long</td>
+                            <td data-zh="记录最后更新时间（13 位毫秒级时间戳）" data-en="Record last updated time (13-digit millisecond timestamp)">记录最后更新时间（13 位毫秒级时间戳）</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <!-- III. 无缝钱包 API -->
